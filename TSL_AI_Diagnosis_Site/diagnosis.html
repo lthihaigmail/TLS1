@@ -80,10 +80,23 @@
 <script>
 /* ---------- CONFIG (chỉnh thương hiệu + thanh toán ở đây) ---------- */
 var CFG={ brand:"TSL · Coach Emmy", price:"499.000đ",
-  payLink:"#",       /* dán link thanh toán (Stripe Payment Link / Momo / ZaloPay) để bán AI Review + Roadmap */
+  sellMode:false,    /* false = Phase 1 (miễn phí, thu Data Asset). Đổi true khi đủ 50 DN để bắt đầu bán */
+  gaId:"",           /* Google Analytics 4: dán mã G-XXXXXXX */
+  clarityId:"",      /* Microsoft Clarity: dán Project ID */
+  payLink:"#",       /* link thanh toán — chỉ dùng khi sellMode:true */
   calendly:"#",      /* link đặt lịch 30 phút */
   formEndpoint:"",   /* Formspree để thu lead tự động; trống = chỉ lưu tại trình duyệt */
+  emailjs:{publicKey:"",serviceId:"",templateId:""}, /* EmailJS tự gửi báo cáo qua email — điền 3 mã từ emailjs.com; trống = dùng nút mailto */
   contact:"lthihai@gmail.com" };
+/* ---- Analytics: chỉ nạp khi đã điền ID ---- */
+(function(){
+ if(CFG.gaId){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+CFG.gaId;document.head.appendChild(s);
+  window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config',CFG.gaId);}
+ if(CFG.clarityId){(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script",CFG.clarityId);}
+})();
+function track(ev,params){try{if(window.gtag)gtag('event',ev,params||{});}catch(e){}}
+/* ---- EmailJS: nạp khi đã cấu hình ---- */
+(function(){if(CFG.emailjs&&CFG.emailjs.publicKey){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';s.onload=function(){try{emailjs.init({publicKey:CFG.emailjs.publicKey});}catch(e){}};document.head.appendChild(s);}})();
 
 var PILLARS={
  T:{name:"Con người — Team",qs:["Đội của bạn có thể tự ra quyết định trong phạm vi việc của họ mà không cần hỏi bạn?","Nếu một người chủ chốt nghỉ, có người khác thay được ngay không?","Các vị trí có mô tả công việc & trách nhiệm rõ ràng, được dùng thật?"]},
@@ -100,6 +113,68 @@ var PLAY={
  L:[["Giành lại thời gian chiến lược","Chặn 3 giờ/tuần làm trên hệ thống, không ai được cắt."],["Làm rõ mục tiêu & ưu tiên quý","1 trang: quý này thắng nghĩa là gì + 3 ưu tiên, truyền đạt cả đội."],["Thiết lập nhịp điều hành","1 họp nhịp/tuần dựa trên chỉ số."]]};
 var LEVELS=[{m:8.5,n:"L5 · Tự cải thiện",d:"Tổ chức tự học và tự nâng cấp — gần như không phụ thuộc chủ."},{m:7,n:"L4 · Tự vận hành",d:"Chủ vắng 2 tuần công ty vẫn chạy ổn."},{m:5,n:"L3 · Có cấu trúc",d:"Vai trò & quy trình được dùng thật, nhưng còn cần chủ hiện diện."},{m:3,n:"L2 · Kiểm soát",d:"Chạy được nhờ chủ có mặt và điều phối liên tục."},{m:0,n:"L1 · Chữa cháy",d:"Sự cố điều khiển lịch làm việc; chủ là bình cứu hỏa."}];
 var PNAME={T:"Con người (T)",S:"Vận hành (S)",L:"Định hướng (L)"};
+
+/* ============ AI REPORT SÂU (tự sinh theo số liệu) ============ */
+var INTERP={
+ T:{low:"Đội chưa tự chủ — quyết định dồn về bạn. Đây là gốc của việc 'càng làm càng bận'.",mid:"Đội làm được việc nhưng còn phụ thuộc bạn ở các quyết định quan trọng.",high:"Đội đủ mạnh để tự vận hành phần lớn công việc — điểm tựa để bạn rút khỏi sự vụ."},
+ S:{low:"Vận hành phụ thuộc trí nhớ và cách làm cá nhân — chất lượng dao động, sự cố lặp lại.",mid:"Có một số quy trình nhưng chưa phủ hết hoặc chưa được tuân thủ nhất quán.",high:"Hệ thống vận hành đủ chuẩn để chịu tải khi tăng trưởng."},
+ L:{low:"Bạn đang mắc kẹt trong sự vụ, thiếu thời gian và cơ chế điều hành chiến lược.",mid:"Có định hướng nhưng ưu tiên chưa đủ rõ hoặc chưa thành nhịp điều hành.",high:"Định hướng rõ và có nhịp điều hành — nền tốt để nhân rộng."}};
+var ROOTCAUSE={
+ T:"Gốc rễ nằm ở phân quyền: quyết định chưa được giao xuống đúng người nên mọi thứ hội tụ về bạn. Không phải đội yếu — mà hệ thống chưa cho phép họ quyết.",
+ S:"Gốc rễ nằm ở thiếu quy trình chuẩn: mỗi việc phụ thuộc người làm cụ thể nên khó nhân rộng và dễ tái diễn sự cố. Sửa hệ thống, không sửa con người.",
+ L:"Gốc rễ nằm ở chưa tách được 'làm TRONG hệ thống' và 'làm TRÊN hệ thống'. Khi chủ bị hút vào sự vụ, cả tổ chức mất la bàn."};
+var RISK={
+ T:"Bạn tiếp tục là nút thắt, khó vắng mặt, tăng trưởng bị giới hạn bởi quỹ thời gian của chính bạn.",
+ S:"Sự cố tiếp tục lặp, chi phí ẩn tăng theo quy mô, chất lượng khó kiểm soát khi đơn hàng nhiều lên.",
+ L:"Đội thiếu phương hướng, nỗ lực phân tán, công ty phụ thuộc hoàn toàn vào sự hiện diện của bạn."};
+var OPP={
+ T:"Bạn giao được quyết định, có thời gian cho việc lớn, đội trưởng thành đủ để bạn vắng mặt mà công ty vẫn chạy.",
+ S:"Chất lượng ổn định, nhân rộng dễ, người mới vào việc nhanh nhờ quy trình.",
+ L:"Cả đội cùng hướng, quyết định nhanh và nhất quán, bạn điều hành bằng hệ thống thay vì bằng sự hiện diện."};
+function band(v){return v<4?'low':v<7?'mid':'high';}
+function fiDesc(fi){return fi<=3?"rất thấp — công ty phụ thuộc nặng vào bạn":fi<=6?"trung bình — còn nhiều việc phải hỏi bạn":"khá cao — công ty đã tương đối tự chủ";}
+function benchmark(lv){var n=lv.charAt(1);
+ if(n<='2')return "Phần lớn SME nằm ở L1–L2 — và đây cũng là nơi cải thiện NHANH nhất: vài thay đổi hệ thống đúng chỗ tạo khác biệt lớn.";
+ if(n=='3')return "Bạn đã vượt phần đông SME dừng ở L1–L2. Bước tiếp (L4 tự vận hành) là ngưỡng ít doanh nghiệp đạt được.";
+ return "Bạn thuộc nhóm ít SME đạt mức tự vận hành. Trọng tâm giờ là duy trì và nhân rộng.";}
+function deepReport(R,company){
+ var w=R.weakest;var lvShort=R.level.n.split(' · ')[0];
+ var target=Math.min(10,R.FI+3);
+ var h='<div class="card"><h2>Tóm tắt điều hành</h2><p>'+
+   '<b>'+company+'</b> đang ở nấc <b>'+R.level.n+'</b>. Chỉ số tự do <b>'+R.FI+'/10</b> cho thấy mức độ công ty vận hành độc lập khỏi bạn đang <b>'+fiDesc(R.FI)+'</b>. '+
+   'Trụ cần ưu tiên nhất là <b>'+PNAME[w]+'</b> (điểm '+R[w]+'/10) — '+INTERP[w][band(R[w])]+'</p>'+
+   '<p class="muted">'+benchmark(lvShort)+'</p></div>';
+ h+='<div class="card"><h2>Phân tích từng trụ</h2>';
+ [['T',R.T],['S',R.S],['L',R.L]].forEach(function(x){h+='<div style="padding:8px 0;border-bottom:1px solid var(--line)"><b>'+PNAME[x[0]]+' — '+x[1]+'/10</b><br><span class="muted">'+INTERP[x[0]][band(x[1])]+'</span></div>';});
+ h+='</div>';
+ h+='<div class="card"><h2>Gốc rễ vấn đề</h2><p>'+ROOTCAUSE[w]+'</p>'+
+   '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">'+
+   '<div style="background:#fdece9;border-left:3px solid var(--bad);padding:12px;border-radius:0 8px 8px 0"><b style="color:var(--bad)">Nếu KHÔNG xử lý</b><br><span style="font-size:14px">'+RISK[w]+'</span></div>'+
+   '<div style="background:#e9f6f0;border-left:3px solid var(--ok);padding:12px;border-radius:0 8px 8px 0"><b style="color:var(--ok)">Nếu xử lý tốt</b><br><span style="font-size:14px">'+OPP[w]+'</span></div></div></div>';
+ h+='<div class="card"><h2>Dự báo 90 ngày</h2><p class="muted" style="margin-top:0">Nếu thực hiện đúng 3 ưu tiên bên dưới, chỉ số tự do dự kiến cải thiện:</p>'+
+   '<div class="bar"><div class="lab">Hiện tại</div><div class="track"><div class="fill" style="width:'+R.FI*10+'%;background:var(--warn)"></div></div><div class="num">'+R.FI+'</div></div>'+
+   '<div class="bar"><div class="lab">Mục tiêu 90 ngày</div><div class="track"><div class="fill" style="width:'+target*10+'%;background:var(--ok)"></div></div><div class="num">'+target+'</div></div>'+
+   '<p class="muted" style="font-size:12px">Dự báo dựa trên mẫu hình cải thiện điển hình; kết quả thực tế phụ thuộc mức độ triển khai.</p></div>';
+ return h;
+}
+/* ---- Gửi email ---- */
+function emailSummary(){var R=window.RESULT;
+ return "Kết quả chẩn đoán — "+info.company+"\n\n"+
+  "Điểm trưởng thành: "+R.level.n+"\nChỉ số tự do: "+R.FI+"/10\nTrụ ngắn nhất: "+PNAME[R.weakest]+
+  "\nĐiểm 3 trụ: T="+R.T+" S="+R.S+" L="+R.L+
+  "\n\n3 việc trọng tâm 90 ngày:\n- "+R.road.map(function(r){return r[0]}).join("\n- ")+
+  "\n\n(Báo cáo bởi "+CFG.brand+" — TSL AI Business Diagnosis)";}
+function sendEmail(){var R=window.RESULT;
+ if(CFG.emailjs&&CFG.emailjs.serviceId&&window.emailjs){
+   emailjs.send(CFG.emailjs.serviceId,CFG.emailjs.templateId,{
+     to_email:info.email,to_name:info.name,company:info.company,
+     maturity:R.level.n,freedom_index:R.FI,weakest:PNAME[R.weakest],summary:emailSummary(),reply_to:CFG.contact
+   }).then(function(){alert('Đã gửi báo cáo về email: '+info.email);track('email_sent');})
+    .catch(function(){mailtoReport();});
+ } else { mailtoReport(); }
+}
+function mailtoReport(){var subj=encodeURIComponent("Báo cáo chẩn đoán — "+info.company);
+ window.location.href="mailto:"+encodeURIComponent(info.email||'')+"?subject="+subj+"&body="+encodeURIComponent(emailSummary());}
 
 var ans={T:[null,null,null],S:[null,null,null],L:[null,null,null]};
 var ctx={absence:"5",zone4:"20",ask:"15"};
@@ -162,7 +237,7 @@ function renderScore(){var R=window.RESULT;
    <div class="row"><div><input id="u_name" placeholder="Tên của bạn *"></div><div><input id="u_company" placeholder="Tên doanh nghiệp *"></div></div>
    <input id="u_email" type="email" placeholder="Email nhận bản lưu *" style="margin-top:10px">
    <button class="btn g" style="margin-top:14px" onclick="unlock()">Mở báo cáo đầy đủ →</button>
-   <p class="muted" style="font-size:12px;margin-top:10px">Miễn phí. Chúng tôi không spam.</p>
+   <p class="muted" style="font-size:12px;margin-top:10px">Miễn phí trong chương trình <b>50 doanh nghiệp đầu tiên</b>. Đổi lại, dữ liệu (ẩn danh khi cần) được dùng để cải thiện chất lượng chẩn đoán. Chúng tôi không spam.</p>
  </div>
  <div class="foot">© ${CFG.brand} · Khung TSL (Team · System · Leadership)</div>`;
  document.getElementById('reportBody').innerHTML=h;window.scrollTo(0,0);}
@@ -171,14 +246,34 @@ function renderScore(){var R=window.RESULT;
 function unlock(){var n=val('u_name'),c=val('u_company'),e=val('u_email');
  if(!n||!c||!e){alert('Vui lòng nhập Tên, Doanh nghiệp và Email.');return;}
  info.name=n;info.company=c;info.email=e;
- var lead=record();
- try{var arr=JSON.parse(localStorage.getItem('tsl_leads')||'[]');arr.push(lead);localStorage.setItem('tsl_leads',JSON.stringify(arr));}catch(err){}
+ var rec=record();
+ // Lưu Evidence Record (tài sản dữ liệu) + lead — tích lũy tại trình duyệt
+ try{var ev=JSON.parse(localStorage.getItem('tsl_evidence')||'[]');ev.push(rec);localStorage.setItem('tsl_evidence',JSON.stringify(ev));}catch(err){}
+ try{var arr=JSON.parse(localStorage.getItem('tsl_leads')||'[]');arr.push({name:n,company:c,email:e,maturity:rec.maturity_level,weakest:rec.health_check.weakest,fi:rec.health_check.freedom_index,time:rec.created});localStorage.setItem('tsl_leads',JSON.stringify(arr));}catch(err){}
  if(CFG.formEndpoint){fetch(CFG.formEndpoint,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({name:n,company:c,email:e,maturity:window.RESULT.level.n,weakest:window.RESULT.weakest,fi:window.RESULT.FI})}).catch(function(){});}
+ track('diagnosis_complete',{maturity:window.RESULT.level.n,weakest:window.RESULT.weakest,fi:window.RESULT.FI});
+ // Tự động gửi báo cáo qua email (im lặng) nếu đã cấu hình EmailJS
+ if(CFG.emailjs&&CFG.emailjs.serviceId&&window.emailjs){try{emailjs.send(CFG.emailjs.serviceId,CFG.emailjs.templateId,{to_email:info.email,to_name:info.name,company:info.company,maturity:window.RESULT.level.n,freedom_index:window.RESULT.FI,weakest:PNAME[window.RESULT.weakest],summary:emailSummary(),reply_to:CFG.contact});track('email_auto');}catch(e){}}
  renderFull();}
+/* Console: gõ tslExportEvidence() để tải TẤT CẢ Evidence đã thu (JSON), tslExportEvidenceCSV() cho CSV */
+window.tslExportEvidence=function(){var a=localStorage.getItem('tsl_evidence')||'[]';dl('TSL_Evidence_all.json',a,'application/json');};
+window.tslExportEvidenceCSV=function(){var a=JSON.parse(localStorage.getItem('tsl_evidence')||'[]');if(!a.length){alert('Chưa có Evidence.');return;}
+ var head=["mission_id","created","company","T","S","L","weakest","system_score","freedom_index","maturity_level"];
+ var rows=a.map(function(r){var h=r.health_check||{};return [r.mission_id,r.created,(r.customer||{}).company,h.T,h.S,h.L,h.weakest,h.system_score,h.freedom_index,r.maturity_level];});
+ var csv=head.join(',')+'\n'+rows.map(function(row){return row.map(function(x){return '"'+String(x==null?'':x).replace(/"/g,'""')+'"';}).join(',');}).join('\n');
+ dl('TSL_Evidence_all.csv',csv,'text/csv');};
 function renderFull(){var R=window.RESULT;
  var h=`<div class="brand">${CFG.brand} · Báo cáo đầy đủ</div>
  <h1 style="margin-bottom:2px">${info.company}</h1><p class="muted">Ngày ${R.date} · ${R.level.n}</p>
- <div class="toolbar noprint"><button class="btn g" onclick="window.print()">⬇ Lưu PDF / In</button><button class="btn ghost" onclick="dlJSON()">Xuất dữ liệu (JSON)</button><button class="btn ghost" onclick="go('landing')">Chẩn đoán mới</button></div>
+ <div class="toolbar noprint"><button class="btn g" onclick="window.print()">⬇ Lưu PDF / In</button><button class="btn g" onclick="sendEmail()">📧 Gửi báo cáo qua email</button><button class="btn ghost" onclick="dlJSON()">Xuất dữ liệu (JSON)</button><button class="btn ghost" onclick="go('landing')">Chẩn đoán mới</button></div>
+
+ <div class="card"><div class="kpis">
+   <div class="kpi"><div class="k">Điểm trưởng thành</div><div class="v" style="font-size:20px;color:var(--gold)">${R.level.n.split(' · ')[0]}</div><div class="muted" style="font-size:12px">${R.level.n.split(' · ')[1]}</div></div>
+   <div class="kpi"><div class="k">Chỉ số tự do</div><div class="v" style="color:${color(R.FI)}">${R.FI}<span style="font-size:14px;color:var(--muted)">/10</span></div><div class="muted" style="font-size:12px">độc lập khỏi chủ</div></div>
+   <div class="kpi"><div class="k">Trụ ngắn nhất</div><div class="v" style="font-size:18px">${PNAME[R.weakest]}</div><div class="muted" style="font-size:12px">nơi cần gia cố</div></div>
+   <div class="kpi"><div class="k">Điểm hệ thống</div><div class="v">${R.mn.toFixed(1)}<span style="font-size:14px;color:var(--muted)">/10</span></div><div class="muted" style="font-size:12px">theo trụ yếu nhất</div></div>
+ </div></div>
+ ${deepReport(R, info.company)}
 
  <div class="card"><h2>10 điểm nghẽn của bạn — được chỉ tên</h2><p class="muted" style="margin-top:4px">Xếp theo ưu tiên, tập trung ở trụ <b>${PNAME[R.weakest]}</b>.</p>`;
  R.bottlenecks.forEach(function(b,i){h+=`<div class="bn"><span class="i">${i+1}</span><span>${b}</span></div>`;});
@@ -190,17 +285,17 @@ function renderFull(){var R=window.RESULT;
    <h2 style="margin-top:20px">Sau 90 ngày bạn sẽ:</h2>
    <ul class="outcomes"><li>Bớt phụ thuộc vào chủ</li><li>Có bộ KPI vận hành</li><li>Có quy trình chuẩn</li><li>Họp ít hơn, quyết nhanh hơn</li><li>Đội tự chủ hơn</li><li>Bạn có lại thời gian</li></ul></div>
 
- <div class="paid noprint"><div class="steptag" style="color:var(--gold)">Bước tiếp theo</div>
+ ${CFG.sellMode?`<div class="paid noprint"><div class="steptag" style="color:var(--gold)">Bước tiếp theo</div>
    <h2 style="border:0;margin:6px 0">AI Review + Roadmap chi tiết</h2>
    <p class="muted">Phân tích chuyên sâu bằng AI theo đúng số liệu của bạn + lộ trình 90 ngày cá nhân hóa + video giải thích. Biến báo cáo này thành kế hoạch hành động.</p>
    <div class="amt">${CFG.price}</div>
-   <a class="btn g" href="${CFG.payLink}">Nhận AI Review + Roadmap →</a></div>
+   <a class="btn g" href="${CFG.payLink}">Nhận AI Review + Roadmap →</a></div>`:''}
 
- <div class="cta noprint"><h2>Hoặc đi thẳng vào kết quả</h2>
+ <div class="cta noprint"><h2>Bước tiếp theo — đi thẳng vào kết quả</h2>
    <p>Một Mission 90 ngày có coach đồng hành — đo được bằng chỉ số tự do tăng lên. Đặt lịch 30 phút để xem có phù hợp không.</p>
    <a class="btn g" href="${CFG.calendly}">Đặt lịch tư vấn 30 phút →</a>
    <p style="font-size:13px;margin-top:14px">Liên hệ: ${CFG.contact}</p></div>
- <div class="foot">© ${CFG.brand} · Báo cáo tham khảo; kết quả thực tế phụ thuộc triển khai.</div>`;
+ <div class="foot" style="max-width:620px;margin:0 auto">Báo cáo này được tạo bởi <b>TSL AI Business Diagnosis</b>. Mỗi kết quả giúp AI của TSL học hỏi và cải thiện chất lượng chẩn đoán cho các doanh nghiệp tiếp theo.<br><br>© ${CFG.brand} · Báo cáo tham khảo; kết quả thực tế phụ thuộc triển khai.</div>`;
  document.getElementById('reportBody').innerHTML=h;window.scrollTo(0,0);}
 
 function record(){var R=window.RESULT;return {mission_id:"DIAG-"+Date.now(),type:"diagnosis",schema_version:"2.0",created:R.date,
@@ -215,4 +310,3 @@ buildSteps();
 </script>
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
