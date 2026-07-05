@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proposal Generator — TSL Mission 90 ngày</title>
+<style>
+  :root{--gold:#C9A227;--gold2:#a5831c;--ink:#16181d;--paper:#fbfaf7;--card:#fff;--line:#e6e2d6;--muted:#6b6a64;--soft:#f4f1e8;--ok:#1D9E75;--warn:#C8891B;--bad:#C0392B}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.55}
+  .wrap{max-width:840px;margin:0 auto;padding:24px 18px 70px}
+  .brand{font-size:12px;letter-spacing:3px;color:var(--gold);font-weight:700;text-transform:uppercase}
+  h1{font-size:26px;margin:6px 0 4px}h2{font-size:20px;margin:0 0 6px;border-bottom:2px solid var(--gold);padding-bottom:6px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin:16px 0}
+  .btn{background:var(--ink);color:#fff;border:0;border-radius:10px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer}
+  .btn:hover{background:#000}.btn.g{background:var(--gold);color:#2a2410}.btn.g:hover{background:var(--gold2)}
+  .btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line);font-weight:500}
+  textarea,input,select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;font-size:14px;font-family:inherit}
+  textarea{min-height:120px;font-family:ui-monospace,Menlo,monospace;font-size:12px}
+  label{display:block;font-size:13px;font-weight:600;margin:12px 0 5px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .muted{color:var(--muted)}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 16px}
+  .out{display:none}
+  ul.o{padding-left:0;list-style:none}ul.o li{padding:10px 12px;background:var(--soft);border-radius:10px;margin:8px 0}
+  ul.o li b{color:var(--gold2)}
+  table{width:100%;border-collapse:collapse;margin-top:8px}th,td{text-align:left;padding:9px;border-bottom:1px solid var(--line);font-size:14px}
+  th{color:var(--muted);font-size:12px;text-transform:uppercase}
+  .price{font-size:15px}.price .tot{font-weight:800;font-size:18px}
+  .foot{color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:12px;margin-top:20px}
+  @media print{.noprint{display:none!important}body{background:#fff}.card{border:1px solid #ccc}}
+  @media(max-width:640px){.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand" id="brandTop">TSL · Coach Emmy</div>
+  <h1>Proposal Generator — Mission 90 ngày</h1>
+  <p class="muted">Dán record JSON xuất từ <b>AI Business Diagnosis</b> (hoặc nạp file) → sinh đề xuất Mission tự động. Worker #3 của AI Business Factory.</p>
+
+  <div class="card noprint">
+    <div class="toolbar">
+      <label class="btn ghost" style="cursor:pointer;margin:0">📂 Nạp file JSON<input type="file" accept="application/json" onchange="loadFile(event)" style="display:none"></label>
+      <button class="btn ghost" onclick="demo()">Dùng dữ liệu mẫu</button>
+    </div>
+    <label>Hoặc dán record JSON vào đây</label>
+    <textarea id="json" placeholder='{"customer":{...},"health_check":{...}}'></textarea>
+    <div class="row">
+      <div><label>Gói đề xuất</label>
+        <select id="pkg">
+          <option value="workshop">Roadmap Workshop — 5.000.000đ</option>
+          <option value="mission" selected>Mission 90 ngày — 30.000.000đ</option>
+          <option value="missionai">Mission 90 ngày + AI Coach — 30tr + 2tr/tháng</option>
+        </select></div>
+      <div><label>Hiệu lực báo giá (ngày)</label><input id="valid" type="number" value="14"></div>
+    </div>
+    <button class="btn g" style="margin-top:16px" onclick="gen()">⚙️ Sinh Proposal →</button>
+  </div>
+
+  <div id="out" class="out">
+    <div class="toolbar noprint">
+      <button class="btn g" onclick="window.print()">⬇ Tải PDF / In</button>
+      <button class="btn ghost" onclick="location.reload()">Làm mới</button>
+    </div>
+    <div id="doc"></div>
+  </div>
+</div>
+
+<script>
+var CFG={brand:"TSL · Coach Emmy",contact:"lthihai@gmail.com"};
+document.getElementById('brandTop').textContent=CFG.brand;
+var PN={T:"Con người (Team)",S:"Vận hành (System)",L:"Định hướng (Leadership)"};
+var OUTCOMES={
+ T:["Chuyển ≥3 loại quyết định đang dồn về bạn xuống cho đội (có khung phân quyền rõ).",
+    "Ghi lại tri thức chủ chốt của ≥3 vị trí thành hướng dẫn dùng được — giảm rủi ro phụ thuộc cá nhân.",
+    "Nâng chỉ số tự do (Freedom Index) — bạn vắng mặt lâu hơn mà công ty vẫn chạy."],
+ S:["Chuẩn hóa 3 quy trình lặp nhiều nhất → chất lượng ổn định, bớt phụ thuộc trí nhớ.",
+    "Dựng bảng 5 chỉ số vận hành cập nhật hằng tuần → phát hiện vấn đề sớm.",
+    "Lập sổ xử lý sự cố → đội tự xử lý thay vì đẩy lên bạn."],
+ L:["Giành lại ≥3 giờ/tuần cho việc chiến lược (làm trên hệ thống, không chữa cháy).",
+    "Làm rõ mục tiêu & 3 ưu tiên quý — cả đội cùng hướng.",
+    "Thiết lập nhịp điều hành theo chỉ số — quyết định nhất quán, bớt cảm tính."]};
+var PRICES={
+ workshop:{name:"Roadmap Workshop (buổi 90')",total:"5.000.000đ",items:[["Phân tích chuyên sâu Health Check","1.500.000đ"],["Buổi workshop 90' 1:1 + roadmap chi tiết","3.500.000đ"]]},
+ mission:{name:"Mission 90 ngày (coach đồng hành)",total:"30.000.000đ",items:[["Chẩn đoán + thiết kế Mission","5.000.000đ"],["12 tuần coach đồng hành + review","20.000.000đ"],["Đo lường kết quả + báo cáo Evidence","5.000.000đ"]]},
+ missionai:{name:"Mission 90 ngày + AI Coach",total:"30.000.000đ + 2.000.000đ/tháng",items:[["Mission 90 ngày trọn gói","30.000.000đ"],["AI Coach theo dõi hằng tuần","2.000.000đ/tháng"]]}
+};
+function loadFile(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){document.getElementById('json').value=r.result;};r.readAsText(f);}
+function demo(){document.getElementById('json').value=JSON.stringify({customer:{company:"Công ty APD",industry:"điện · tự động hóa",size:45,contact_name:"Anh Dũng",email:"apd@example.com"},health_check:{T:5.8,S:3.3,L:6.7,weakest:"S",system_score:3.3,freedom_index:5},maturity_level:"L2 · Kiểm soát",roadmap_90d:["Chuẩn hóa 1 quy trình lặp nhiều nhất","Lập sổ xử lý sự cố","Dựng bảng chỉ số tối thiểu"]},null,2);}
+function gen(){
+ var raw=document.getElementById('json').value.trim();if(!raw){alert('Dán JSON hoặc nạp file trước.');return;}
+ var d;try{d=JSON.parse(raw);}catch(e){alert('JSON không hợp lệ: '+e.message);return;}
+ var c=d.customer||{},h=d.health_check||{};var w=h.weakest||'S';
+ var pk=PRICES[document.getElementById('pkg').value];
+ var today=new Date();var exp=new Date(today.getTime()+ (Number(document.getElementById('valid').value)||14)*86400000);
+ var fmt=function(dt){return dt.toLocaleDateString('vi-VN')};
+ var oc=OUTCOMES[w];
+ var h_ = `<div class="brand">${CFG.brand} · ĐỀ XUẤT MISSION</div>
+ <h1>Đề xuất chuyển đổi vận hành 90 ngày</h1>
+ <p class="muted">Gửi: <b>${c.company||'Quý doanh nghiệp'}</b>${c.contact_name?' · '+c.contact_name:''} · Ngày ${fmt(today)}</p>
+
+ <div class="card"><h2>1 · Chúng tôi thấy gì</h2>
+ <p>Qua chẩn đoán sức khỏe vận hành, doanh nghiệp đang ở nấc <b>${d.maturity_level||'—'}</b> với chỉ số tự do <b>${h.freedom_index!=null?h.freedom_index+'/10':'—'}</b>. Trụ cần gia cố nhất là <b>${PN[w]}</b> (điểm ${h[w]!=null?h[w]:'—'}/10) — đây là nút thắt đang khiến công ty phụ thuộc nhiều vào người đứng đầu và khó mở rộng ổn định.</p>
+ <p class="muted">Nói ngắn gọn: vấn đề không phải thiếu nỗ lực, mà là <b>${w==='S'?'hệ thống vận hành chưa được chuẩn hóa':w==='T'?'đội chưa đủ tự chủ, việc dồn về chủ':'định hướng & nhịp điều hành chưa đủ rõ'}</b>. Đây là thứ sửa được bằng thiết kế lại hệ thống, không phải làm việc nhiều hơn.</p></div>
+
+ <div class="card"><h2>2 · Cam kết sau 90 ngày</h2><ul class="o">
+   <li><b>Kết quả 1.</b> ${oc[0]}</li>
+   <li><b>Kết quả 2.</b> ${oc[1]}</li>
+   <li><b>Kết quả 3.</b> ${oc[2]}</li>
+ </ul><p class="muted">Tất cả đo được — trước/sau bằng cùng bộ chỉ số Health Check.</p></div>
+
+ <div class="card"><h2>3 · Cách làm việc</h2>
+ <p>Mô hình TSL (Team · System · Leadership): mỗi tuần tập trung gỡ một nút, theo lộ trình ưu tiên trụ <b>${PN[w]}</b>. Coach đồng hành trực tiếp cùng bạn và đội — không giao bài lý thuyết, làm thẳng vào hệ thống thật. Ba việc trọng tâm quý này:</p>
+ <ul class="o">${(d.roadmap_90d||oc).slice(0,3).map(function(r){return '<li>'+r+'</li>'}).join('')}</ul></div>
+
+ <div class="card"><h2>4 · Đầu tư</h2>
+ <p class="muted">Gói đề xuất: <b>${pk.name}</b></p>
+ <table><thead><tr><th>Hạng mục</th><th style="text-align:right">Chi phí</th></tr></thead><tbody>
+ ${pk.items.map(function(it){return '<tr><td>'+it[0]+'</td><td style="text-align:right">'+it[1]+'</td></tr>'}).join('')}
+ <tr><td class="price"><b>Tổng</b></td><td class="price" style="text-align:right"><span class="tot">${pk.total}</span></td></tr>
+ </tbody></table>
+ <p class="muted" style="margin-top:12px">Báo giá có hiệu lực đến <b>${fmt(exp)}</b>. Định giá theo giá trị tạo ra (giảm phụ thuộc chủ, tăng chỉ số tự do), không theo giờ công.</p></div>
+
+ <div class="card"><h2>5 · Bước tiếp theo</h2>
+ <p>Xác nhận đề xuất này → chúng ta chốt lịch buổi khởi động (Discovery + Health Check baseline) trong tuần. Liên hệ: <b>${CFG.contact}</b>.</p></div>
+ <div class="foot">© ${CFG.brand} · Đề xuất dựa trên khung TSL · Kết quả thực tế phụ thuộc mức độ triển khai của doanh nghiệp.</div>`;
+ document.getElementById('doc').innerHTML=h_;
+ document.getElementById('out').style.display='block';
+ window.scrollTo(0,document.getElementById('out').offsetTop-10);
+}
+</script>
+</body>
+</html>

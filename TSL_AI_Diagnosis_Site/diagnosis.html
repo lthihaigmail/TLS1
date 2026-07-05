@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nếu bạn nghỉ 14 ngày, công ty có còn chạy? — Chẩn đoán 10 phút</title>
+<style>
+  :root{--gold:#C9A227;--gold2:#a5831c;--ink:#16181d;--ink2:#2a2d36;--paper:#fbfaf7;--card:#fff;--line:#e6e2d6;--muted:#6b6a64;--soft:#f4f1e8;--ok:#1D9E75;--warn:#C8891B;--bad:#C0392B;--blue:#3B7DD8;--lock:#8a6a12}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.55}
+  .wrap{max-width:860px;margin:0 auto;padding:0 18px}
+  .brand{font-size:12px;letter-spacing:3px;color:var(--gold);font-weight:700;text-transform:uppercase}
+  h1{font-size:30px;line-height:1.2;margin:8px 0 6px}h2{font-size:21px;margin:0 0 4px}
+  .btn{display:inline-block;background:var(--ink);color:#fff;border:0;border-radius:10px;padding:14px 26px;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none}
+  .btn:hover{background:#000}.btn.g{background:var(--gold);color:#2a2410}.btn.g:hover{background:var(--gold2)}
+  .btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line);font-weight:500}
+  .muted{color:var(--muted)}.screen{display:none}.screen.active{display:block}
+  .hero{background:linear-gradient(160deg,#16181d 0%,#23262f 100%);color:#fff;padding:56px 0 60px;border-bottom:4px solid var(--gold)}
+  .hero h1{color:#fff;max-width:660px}.hero p.lead{font-size:18px;color:#d8d5cc;max-width:600px;margin:14px 0 26px}
+  .sec{padding:34px 0}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin:16px 0}
+  label{display:block;font-size:14px;font-weight:600;margin:14px 0 6px}
+  input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:9px;font-size:15px;background:#fff}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .q{padding:14px 0;border-bottom:1px solid var(--line)}.q:last-child{border-bottom:0}
+  .q .qt{font-weight:600;font-size:15px;margin-bottom:10px}
+  .scale{display:flex;gap:8px;flex-wrap:wrap}
+  .scale button{flex:1;min-width:54px;border:1px solid var(--line);background:#fff;border-radius:9px;padding:10px 4px;font-size:13px;cursor:pointer;color:var(--ink2)}
+  .scale button.sel{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .steptag{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700}
+  .pillarhead{font-size:19px;margin:6px 0 2px}.nav{display:flex;justify-content:space-between;margin-top:22px;gap:10px}
+  .prog{height:6px;background:var(--soft);border-radius:6px;overflow:hidden;margin:8px 0 0}.prog>i{display:block;height:100%;background:var(--gold);width:0;transition:width .3s}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .kpi{border:1px solid var(--line);border-radius:12px;padding:16px;background:#fff;text-align:center}
+  .kpi .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}.kpi .v{font-size:30px;font-weight:800;margin-top:4px}
+  .bar{display:flex;align-items:center;gap:12px;margin:11px 0}.bar .lab{width:150px;font-size:14px;font-weight:600}
+  .bar .track{flex:1;height:16px;background:var(--soft);border-radius:9px;overflow:hidden}.bar .fill{height:100%;border-radius:9px}.bar .num{width:44px;text-align:right;font-weight:700}
+  .bn{display:flex;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:15px}.bn:last-child{border-bottom:0}.bn .i{color:var(--bad);font-weight:800}
+  ol.road{padding-left:0;list-style:none;counter-reset:r}ol.road li{counter-increment:r;position:relative;padding:14px 14px 14px 54px;background:var(--soft);border-radius:12px;margin:10px 0}
+  ol.road li::before{content:counter(r);position:absolute;left:14px;top:14px;width:28px;height:28px;background:var(--gold);color:#2a2410;border-radius:50%;display:grid;place-items:center;font-weight:800}ol.road li b{display:block;margin-bottom:3px}
+  .lockbox{border:2px dashed var(--gold);border-radius:14px;padding:24px;background:#fffdf5;text-align:center;position:relative}
+  .lockbox h2{color:var(--lock)}
+  .outcomes{list-style:none;padding:0;margin:10px 0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .outcomes li{padding-left:26px;position:relative;font-size:14px}.outcomes li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:800}
+  .cta{background:linear-gradient(160deg,#16181d,#23262f);color:#fff;border-radius:14px;padding:26px;text-align:center;margin-top:20px}.cta h2{color:#fff}.cta p{color:#d0cdc4;max-width:520px;margin:8px auto 18px}
+  .paid{border:2px solid var(--gold);border-radius:14px;padding:22px;text-align:center;background:#fffdf5;margin-top:16px}
+  .paid .amt{font-size:30px;font-weight:800}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 18px}
+  .foot{color:var(--muted);font-size:12px;text-align:center;padding:30px 0}
+  .teaser{filter:blur(5px);opacity:.5;pointer-events:none;user-select:none}
+  @media(max-width:640px){.row,.kpis,.outcomes{grid-template-columns:1fr 1fr}h1{font-size:24px}.bar .lab{width:110px}}
+  @media print{.noprint{display:none!important}body{background:#fff}.hero{display:none}.lockbox,.paid,.cta{display:none!important}.teaser{filter:none;opacity:1}.card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<!-- LANDING (mini) -->
+<section id="landing" class="screen active">
+  <div class="hero"><div class="wrap">
+    <div class="brand">TSL · Coach Emmy</div>
+    <h1>Nếu bạn nghỉ 14 ngày, công ty có còn hoạt động không?</h1>
+    <p class="lead">Làm bài chẩn đoán 10 phút để biết doanh nghiệp của bạn đang phụ thuộc vào bạn ở mức nào — và gỡ từ đâu.</p>
+    <a class="btn g" onclick="go('form')">Bắt đầu ngay — miễn phí →</a>
+    <p style="color:#b9b6ad;font-size:13px;margin-top:18px">Không cần đăng ký để xem điểm · 10 phút · có ngay kết quả</p>
+  </div></div>
+</section>
+
+<!-- FORM -->
+<section id="form" class="screen"><div class="wrap sec">
+  <div class="prog noprint"><i id="prog"></i></div>
+  <div id="formSteps"></div>
+  <div class="nav noprint">
+    <button class="btn ghost" onclick="prevStep()" id="btnPrev">← Quay lại</button>
+    <button class="btn g" onclick="nextStep()" id="btnNext">Tiếp tục →</button>
+  </div>
+</div></section>
+
+<!-- SCORE (free) + REPORT (unlocked) -->
+<section id="report" class="screen"><div class="wrap sec" id="reportBody"></div></section>
+
+<script>
+/* ---------- CONFIG (chỉnh thương hiệu + thanh toán ở đây) ---------- */
+var CFG={ brand:"TSL · Coach Emmy", price:"499.000đ",
+  payLink:"#",       /* dán link thanh toán (Stripe Payment Link / Momo / ZaloPay) để bán AI Review + Roadmap */
+  calendly:"#",      /* link đặt lịch 30 phút */
+  formEndpoint:"",   /* Formspree để thu lead tự động; trống = chỉ lưu tại trình duyệt */
+  contact:"lthihai@gmail.com" };
+
+var PILLARS={
+ T:{name:"Con người — Team",qs:["Đội của bạn có thể tự ra quyết định trong phạm vi việc của họ mà không cần hỏi bạn?","Nếu một người chủ chốt nghỉ, có người khác thay được ngay không?","Các vị trí có mô tả công việc & trách nhiệm rõ ràng, được dùng thật?"]},
+ S:{name:"Vận hành — System",qs:["Các việc lặp lại có quy trình chuẩn được tuân thủ?","Khi có sự cố, tổ chức xử lý theo quy trình có sẵn thay vì mỗi lần một kiểu?","Bạn có bộ chỉ số để biết sức khỏe công ty mà không cần hỏi từng người?"]},
+ L:{name:"Định hướng — Leadership",qs:["Công ty có mục tiêu & ưu tiên rõ ràng mà cả đội đều biết?","Bạn dành thời gian làm việc CHIẾN LƯỢC thay vì chữa cháy hằng ngày?","Quyết định lớn dựa trên dữ liệu & nguyên tắc, không phụ thuộc cảm tính?"]}};
+var SCALE=[["1","Không"],["2","Hiếm"],["3","Đôi khi"],["4","Thường"],["5","Luôn"]];
+var BOTTLENECK={
+ T:["Quyết định dồn về chủ — đội không dám/không được tự quyết.","Kiến thức nằm trong đầu vài người, không ghi lại → rủi ro khi họ nghỉ.","Vai trò chồng chéo/mơ hồ → việc rơi, đổ lỗi qua lại.","Tuyển được người nhưng không giữ/không phát triển năng lực.","Chủ vẫn là người 'giỏi nhất mọi việc' → đội không lớn lên được."],
+ S:["Việc lặp lại chưa có quy trình → mỗi lần một kiểu, chất lượng dao động.","Sự cố tái diễn không có cách xử lý chuẩn → tốn thời gian chữa cháy.","Thiếu chỉ số vận hành → ra quyết định bằng cảm giác, phát hiện vấn đề trễ.","Thông tin rời rạc → thất thoát, khó truy vết.","Tăng trưởng làm lộ hệ thống chưa chịu tải → càng lớn càng rối."],
+ L:["Chủ mắc kẹt trong việc sự vụ, không còn thời gian chiến lược.","Mục tiêu không rõ/không truyền đạt → đội thiếu phương hướng.","Ưu tiên thay đổi liên tục → đội mất tập trung.","Quyết định cảm tính, thiếu nguyên tắc nhất quán.","Chưa có cơ chế để công ty tự chạy khi chủ vắng mặt."]};
+var PLAY={
+ T:[["Chuẩn hóa vai trò & quyền quyết định","Vẽ sơ đồ trách nhiệm: mỗi vị trí quyết được gì. Bắt đầu từ 3 quyết định hay bị đẩy lên bạn nhất."],["Ghi lại tri thức chủ chốt","3 việc 'chỉ mình X làm được' → viết hướng dẫn 1 trang, để người khác làm thử."],["Tạo cơ chế phát triển đội","Mỗi tuần giao 1 quyết định lớn hơn cho cấp dưới + review."]],
+ S:[["Chuẩn hóa 1 quy trình lặp nhiều nhất","Viết quy trình 5 bước cho việc lặp tốn thời gian nhất, theo dõi tuân thủ."],["Lập sổ xử lý sự cố","Ghi 5 sự cố hay gặp + cách xử lý chuẩn → đội tự tra."],["Dựng bảng chỉ số tối thiểu","5 con số quan trọng nhất, cập nhật hằng tuần."]],
+ L:[["Giành lại thời gian chiến lược","Chặn 3 giờ/tuần làm trên hệ thống, không ai được cắt."],["Làm rõ mục tiêu & ưu tiên quý","1 trang: quý này thắng nghĩa là gì + 3 ưu tiên, truyền đạt cả đội."],["Thiết lập nhịp điều hành","1 họp nhịp/tuần dựa trên chỉ số."]]};
+var LEVELS=[{m:8.5,n:"L5 · Tự cải thiện",d:"Tổ chức tự học và tự nâng cấp — gần như không phụ thuộc chủ."},{m:7,n:"L4 · Tự vận hành",d:"Chủ vắng 2 tuần công ty vẫn chạy ổn."},{m:5,n:"L3 · Có cấu trúc",d:"Vai trò & quy trình được dùng thật, nhưng còn cần chủ hiện diện."},{m:3,n:"L2 · Kiểm soát",d:"Chạy được nhờ chủ có mặt và điều phối liên tục."},{m:0,n:"L1 · Chữa cháy",d:"Sự cố điều khiển lịch làm việc; chủ là bình cứu hỏa."}];
+var PNAME={T:"Con người (T)",S:"Vận hành (S)",L:"Định hướng (L)"};
+
+var ans={T:[null,null,null],S:[null,null,null],L:[null,null,null]};
+var ctx={absence:"5",zone4:"20",ask:"15"};
+var info={company:"",industry:"",name:"",email:""};
+var step=0, steps=[];
+function buildSteps(){steps=[function(){return pillar('T',1)},function(){return pillar('S',2)},function(){return pillar('L',3)},context];}
+function pillar(p,n){var P=PILLARS[p];var h=`<div class="steptag">Bước ${n}/4 · Trụ ${n}/3</div><h2 class="pillarhead">${P.name}</h2><div class="card">`;
+ P.qs.forEach(function(q,qi){h+=`<div class="q"><div class="qt">${qi+1}. ${q}</div><div class="scale">`;
+  SCALE.forEach(function(s){var sel=ans[p][qi]==s[0]?'sel':'';h+=`<button class="${sel}" onclick="pick('${p}',${qi},'${s[0]}',this)"><b>${s[0]}</b><br><span style="font-size:11px">${s[1]}</span></button>`;});
+  h+=`</div></div>`;});return h+`</div>`;}
+function context(){return `<div class="steptag">Bước 4/4 · Mức phụ thuộc</div><h2 class="pillarhead">Công ty phụ thuộc vào bạn tới đâu?</h2><div class="card">
+  <label>Nếu bạn vắng mặt, công ty chạy tốt được bao lâu?</label>
+  <select id="c_abs"><option value="2">Khoảng 1 ngày</option><option value="5">Khoảng 1 tuần</option><option value="7">Khoảng 2 tuần</option><option value="9">Khoảng 1 tháng</option><option value="10">1 quý trở lên</option></select>
+  <label>% thời gian bạn dành cho việc "chỉ mình bạn làm được"</label><input id="c_z4" type="number" value="${ctx.zone4}">
+  <label>Số lần bạn bị hỏi xin quyết định mỗi tuần</label><input id="c_ask" type="number" value="${ctx.ask}"></div>`;}
+function pick(p,qi,v,el){ans[p][qi]=v;var box=el.parentNode;[].forEach.call(box.children,function(b){b.classList.remove('sel')});el.classList.add('sel');}
+function val(id){var e=document.getElementById(id);return e?e.value:"";}
+function saveStep(){if(step===3){ctx.absence=val('c_abs');ctx.zone4=val('c_z4');ctx.ask=val('c_ask');}}
+function renderStep(){document.getElementById('formSteps').innerHTML=steps[step]();
+ if(step===3){var s=document.getElementById('c_abs');if(s)s.value=ctx.absence;}
+ document.getElementById('prog').style.width=(step/(steps.length-1)*100)+'%';
+ document.getElementById('btnPrev').style.visibility=step===0?'hidden':'visible';
+ document.getElementById('btnNext').textContent=step===steps.length-1?'Xem điểm →':'Tiếp tục →';window.scrollTo(0,0);}
+function nextStep(){saveStep();
+ if(step<=2){var p=['T','S','L'][step];if(ans[p].some(function(x){return x===null})){alert('Vui lòng trả lời cả 3 câu.');return;}}
+ if(step<steps.length-1){step++;renderStep();}else{compute();go('report');}}
+function prevStep(){saveStep();if(step>0){step--;renderStep();}}
+
+function pillarScore(p){var a=ans[p].map(Number);var avg=(a[0]+a[1]+a[2])/3;return +(((avg-1)/4)*10).toFixed(1);}
+function clamp(x){return Math.max(0,Math.min(10,x));}
+function compute(){var T=pillarScore('T'),S=pillarScore('S'),L=pillarScore('L');var sc={T:T,S:S,L:L};
+ var order=Object.keys(sc).sort(function(a,b){return sc[a]-sc[b]});var weakest=order[0];var mn=Math.min(T,S,L);
+ var lvl=LEVELS.find(function(x){return mn>=x.m});
+ var FI=Math.round(0.5*Number(ctx.absence)+0.25*clamp(10-Number(ctx.zone4)/5)+0.25*clamp(10-Number(ctx.ask)/3));
+ var bn=[];BOTTLENECK[order[0]].slice(0,4).forEach(function(x){bn.push(x)});BOTTLENECK[order[1]].slice(0,3).forEach(function(x){bn.push(x)});BOTTLENECK[order[2]].slice(0,3).forEach(function(x){bn.push(x)});
+ window.RESULT={T:T,S:S,L:L,weakest:weakest,mn:mn,level:lvl,FI:FI,bottlenecks:bn,road:PLAY[weakest],date:new Date().toISOString().slice(0,10)};
+ renderScore();}
+function color(v){return v>=7?'var(--ok)':v>=4?'var(--warn)':'var(--bad)';}
+
+/* ---- FREE SCORE SCREEN (chưa cần email) ---- */
+function renderScore(){var R=window.RESULT;
+ var h=`<div class="brand">${CFG.brand} · Kết quả chẩn đoán</div>
+ <h1 style="margin-bottom:2px">Điểm của bạn đã sẵn sàng</h1>
+ <p class="muted">Xem ngay — không cần đăng ký.</p>
+ <div class="card"><div class="kpis">
+   <div class="kpi"><div class="k">Điểm trưởng thành</div><div class="v" style="font-size:20px;color:var(--gold)">${R.level.n.split(' · ')[0]}</div><div class="muted" style="font-size:12px">${R.level.n.split(' · ')[1]}</div></div>
+   <div class="kpi"><div class="k">Chỉ số tự do</div><div class="v" style="color:${color(R.FI)}">${R.FI}<span style="font-size:14px;color:var(--muted)">/10</span></div><div class="muted" style="font-size:12px">độc lập khỏi chủ</div></div>
+   <div class="kpi"><div class="k">Trụ ngắn nhất</div><div class="v" style="font-size:18px">${PNAME[R.weakest]}</div><div class="muted" style="font-size:12px">nơi cần gia cố</div></div>
+   <div class="kpi"><div class="k">Điểm hệ thống</div><div class="v">${R.mn.toFixed(1)}<span style="font-size:14px;color:var(--muted)">/10</span></div><div class="muted" style="font-size:12px">theo trụ yếu nhất</div></div>
+ </div>
+ <p class="muted" style="margin:16px 0 4px">${R.level.d}</p></div>
+
+ <div class="card"><h2>Ba trụ giữ doanh nghiệp đứng vững</h2><p class="muted" style="margin-top:4px">Sức khỏe hệ thống = <b>trụ ngắn nhất</b>, không phải điểm trung bình.</p>`;
+ [['T',R.T],['S',R.S],['L',R.L]].forEach(function(x){h+=`<div class="bar"><div class="lab">${PNAME[x[0]]}${x[0]===R.weakest?' ⚠️':''}</div><div class="track"><div class="fill" style="width:${x[1]*10}%;background:${color(x[1])}"></div></div><div class="num" style="color:${color(x[1])}">${x[1]}</div></div>`;});
+ h+=`</div>
+
+ <div class="lockbox">
+   <h2>🔓 Mở báo cáo đầy đủ — miễn phí</h2>
+   <p class="muted">Điểm số ở trên mới là bề mặt. Báo cáo đầy đủ chỉ ra <b>10 điểm nghẽn cụ thể của bạn</b> và <b>lộ trình 90 ngày</b> để gỡ trụ yếu nhất. Nhập thông tin để mở khóa:</p>
+   <div class="row"><div><input id="u_name" placeholder="Tên của bạn *"></div><div><input id="u_company" placeholder="Tên doanh nghiệp *"></div></div>
+   <input id="u_email" type="email" placeholder="Email nhận bản lưu *" style="margin-top:10px">
+   <button class="btn g" style="margin-top:14px" onclick="unlock()">Mở báo cáo đầy đủ →</button>
+   <p class="muted" style="font-size:12px;margin-top:10px">Miễn phí. Chúng tôi không spam.</p>
+ </div>
+ <div class="foot">© ${CFG.brand} · Khung TSL (Team · System · Leadership)</div>`;
+ document.getElementById('reportBody').innerHTML=h;window.scrollTo(0,0);}
+
+/* ---- UNLOCK → FULL REPORT ---- */
+function unlock(){var n=val('u_name'),c=val('u_company'),e=val('u_email');
+ if(!n||!c||!e){alert('Vui lòng nhập Tên, Doanh nghiệp và Email.');return;}
+ info.name=n;info.company=c;info.email=e;
+ var lead=record();
+ try{var arr=JSON.parse(localStorage.getItem('tsl_leads')||'[]');arr.push(lead);localStorage.setItem('tsl_leads',JSON.stringify(arr));}catch(err){}
+ if(CFG.formEndpoint){fetch(CFG.formEndpoint,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({name:n,company:c,email:e,maturity:window.RESULT.level.n,weakest:window.RESULT.weakest,fi:window.RESULT.FI})}).catch(function(){});}
+ renderFull();}
+function renderFull(){var R=window.RESULT;
+ var h=`<div class="brand">${CFG.brand} · Báo cáo đầy đủ</div>
+ <h1 style="margin-bottom:2px">${info.company}</h1><p class="muted">Ngày ${R.date} · ${R.level.n}</p>
+ <div class="toolbar noprint"><button class="btn g" onclick="window.print()">⬇ Lưu PDF / In</button><button class="btn ghost" onclick="dlJSON()">Xuất dữ liệu (JSON)</button><button class="btn ghost" onclick="go('landing')">Chẩn đoán mới</button></div>
+
+ <div class="card"><h2>10 điểm nghẽn của bạn — được chỉ tên</h2><p class="muted" style="margin-top:4px">Xếp theo ưu tiên, tập trung ở trụ <b>${PNAME[R.weakest]}</b>.</p>`;
+ R.bottlenecks.forEach(function(b,i){h+=`<div class="bn"><span class="i">${i+1}</span><span>${b}</span></div>`;});
+ h+=`</div>
+
+ <div class="card"><h2>Lộ trình 90 ngày — 3 việc trọng tâm</h2><p class="muted" style="margin-top:4px">Gia cố <b>${PNAME[R.weakest]}</b> trước, không làm dàn trải.</p><ol class="road">`;
+ R.road.forEach(function(r){h+=`<li><b>${r[0]}</b><span class="muted">${r[1]}</span></li>`;});
+ h+=`</ol>
+   <h2 style="margin-top:20px">Sau 90 ngày bạn sẽ:</h2>
+   <ul class="outcomes"><li>Bớt phụ thuộc vào chủ</li><li>Có bộ KPI vận hành</li><li>Có quy trình chuẩn</li><li>Họp ít hơn, quyết nhanh hơn</li><li>Đội tự chủ hơn</li><li>Bạn có lại thời gian</li></ul></div>
+
+ <div class="paid noprint"><div class="steptag" style="color:var(--gold)">Bước tiếp theo</div>
+   <h2 style="border:0;margin:6px 0">AI Review + Roadmap chi tiết</h2>
+   <p class="muted">Phân tích chuyên sâu bằng AI theo đúng số liệu của bạn + lộ trình 90 ngày cá nhân hóa + video giải thích. Biến báo cáo này thành kế hoạch hành động.</p>
+   <div class="amt">${CFG.price}</div>
+   <a class="btn g" href="${CFG.payLink}">Nhận AI Review + Roadmap →</a></div>
+
+ <div class="cta noprint"><h2>Hoặc đi thẳng vào kết quả</h2>
+   <p>Một Mission 90 ngày có coach đồng hành — đo được bằng chỉ số tự do tăng lên. Đặt lịch 30 phút để xem có phù hợp không.</p>
+   <a class="btn g" href="${CFG.calendly}">Đặt lịch tư vấn 30 phút →</a>
+   <p style="font-size:13px;margin-top:14px">Liên hệ: ${CFG.contact}</p></div>
+ <div class="foot">© ${CFG.brand} · Báo cáo tham khảo; kết quả thực tế phụ thuộc triển khai.</div>`;
+ document.getElementById('reportBody').innerHTML=h;window.scrollTo(0,0);}
+
+function record(){var R=window.RESULT;return {mission_id:"DIAG-"+Date.now(),type:"diagnosis",schema_version:"2.0",created:R.date,
+ customer:{company:info.company,contact_name:info.name,email:info.email},
+ health_check:{T:R.T,S:R.S,L:R.L,weakest:R.weakest,system_score:R.mn,freedom_index:R.FI,absence:Number(ctx.absence),zone4_pct:Number(ctx.zone4),ask_per_week:Number(ctx.ask)},
+ maturity_level:R.level.n,bottlenecks:R.bottlenecks,roadmap_90d:R.road.map(function(r){return r[0]}),status:"diagnosed",evidence_status:"Self_Reported"};}
+function dl(name,text,type){var b=new Blob([text],{type:type});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download=name;a.click();URL.revokeObjectURL(u);}
+function dlJSON(){dl((info.company||'diagnosis').replace(/\s+/g,'_')+'_record.json',JSON.stringify(record(),null,2),'application/json');}
+
+function go(id){['landing','form','report'].forEach(function(s){document.getElementById(s).classList.remove('active')});document.getElementById(id).classList.add('active');if(id==='form'){buildSteps();step=0;renderStep();}window.scrollTo(0,0);}
+buildSteps();
+</script>
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
