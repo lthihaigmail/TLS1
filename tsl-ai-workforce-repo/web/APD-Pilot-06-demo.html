@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — AI Sales chạy trên Hiến pháp APD</title>
+<style>
+  :root{
+    --bg:#f7f6f2; --card:#ffffff; --ink:#1c1c1a; --muted:#6b6a64; --hint:#98968e;
+    --line:#e4e2d9; --line2:#cfccc0; --accent:#0f6e56; --accent-bg:#e1f5ee;
+    --ok:#0f6e56; --ok-bg:#e1f5ee; --ok-line:#9fe1cb;
+    --no:#a32d2d; --no-bg:#fceceb; --no-line:#f0999b;
+    --wn:#854f0b; --wn-bg:#faeeda; --wn-line:#f0c777;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px; margin:0 auto; padding:32px 20px 56px;}
+  .head{display:flex; align-items:center; gap:12px; margin-bottom:6px;}
+  .ava{width:44px;height:44px;border-radius:50%;background:var(--accent-bg);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;}
+  h1{font-size:19px; font-weight:600; margin:0;}
+  .sub{margin:0; font-size:13px; color:var(--hint);}
+  .lead{font-size:14px; color:var(--muted); margin:14px 0 18px;}
+  .toggle{display:inline-flex; gap:4px; background:#efeee8; padding:4px; border-radius:9px; margin-bottom:18px;}
+  .toggle button{border:none; background:transparent; font-size:13px; padding:7px 14px; border-radius:7px;
+    cursor:pointer; color:var(--muted); font-family:inherit;}
+  .toggle button.on{background:var(--card); color:var(--ink); box-shadow:0 1px 2px rgba(0,0,0,.06);}
+  .chips-label{font-size:13px; color:var(--muted); margin:0 0 10px;}
+  .chips{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; margin-bottom:22px;}
+  .chip{text-align:left; font-size:13px; padding:10px 13px; line-height:1.4; background:var(--card);
+    border:.5px solid var(--line2); border-radius:9px; cursor:pointer; color:var(--ink); font-family:inherit;}
+  .chip:hover{border-color:var(--accent); background:#fbfbf9;}
+  .chip .n{color:var(--hint); margin-right:6px;}
+  .convo{min-height:70px;}
+  .placeholder{font-size:13px; color:var(--hint); padding:14px 2px;}
+  .row{display:flex; margin:8px 0;}
+  .row.right{justify-content:flex-end;}
+  .bub{max-width:82%; border-radius:12px; padding:9px 13px; font-size:14px; line-height:1.55;}
+  .bub .who{font-size:11px; display:block; margin-bottom:2px;}
+  .cust{background:#efeee8; border-radius:12px 12px 2px 12px;}
+  .cust .who{color:var(--hint);}
+  .ai{background:var(--card); border:.5px solid var(--line); border-radius:12px 12px 12px 2px;}
+  .ai .who{color:var(--accent);}
+  .verdict{margin:10px 0 4px; border-radius:9px; padding:11px 13px;}
+  .verdict .top{display:flex; align-items:center; gap:8px; margin-bottom:5px; font-weight:600; font-size:13px; letter-spacing:.02em;}
+  .verdict .meta{font-size:12px; display:flex; flex-wrap:wrap; gap:4px 18px;}
+  .v-ok{background:var(--ok-bg); border:.5px solid var(--ok-line); color:var(--ok);}
+  .v-no{background:var(--no-bg); border:.5px solid var(--no-line); color:var(--no);}
+  .v-wn{background:var(--wn-bg); border:.5px solid var(--wn-line); color:var(--wn);}
+  .ic{width:17px;height:17px;flex:none;}
+  .foot{margin-top:30px; padding-top:16px; border-top:.5px solid var(--line); font-size:12px; color:var(--hint);}
+  .foot b{color:var(--muted); font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="ava">AI</div>
+    <div>
+      <h1>AI Sales · AI-00045</h1>
+      <p class="sub">APD · chạy trên Hiến pháp APD-CONST-001 v2.0</p>
+    </div>
+  </div>
+  <p class="lead">Mỗi hành động của AI đi qua lớp enforcement tất định, đối chiếu với Hiến pháp doanh nghiệp trước khi thực thi. Bật “Chatbot thường” để thấy khác biệt về quản trị rủi ro.</p>
+
+  <div class="toggle" role="tablist">
+    <button id="m-const" class="on" onclick="setMode('const')">🛡 AI + Hiến pháp</button>
+    <button id="m-gen" onclick="setMode('generic')">🤖 Chatbot thường</button>
+  </div>
+
+  <p class="chips-label">Chọn một tình huống khách hàng nói:</p>
+  <div class="chips" id="chips"></div>
+
+  <div class="convo" id="convo"></div>
+
+  <div class="foot">
+    <p><b>Điểm mấu chốt:</b> hành vi AI do Hiến pháp (file YAML) quyết định, không phải code. Đổi sang doanh nghiệp khác chỉ cần thay Hiến pháp — giữ nguyên runtime & engine.</p>
+    <p>TSL Constitution Engine · demo pilot · An Phương Distribution</p>
+  </div>
+</div>
+
+<script>
+var S=[
+ {id:1,cust:"Giảm cho anh 3% lô MCCB Schneider nhé.",verdict:"ALLOW",rule:"—",route:null,
+  ai:"Dạ được ạ. Mức giảm 3% nằm trong thẩm quyền của em. Em lập báo giá lô MCCB Schneider gửi anh trong hôm nay, hiệu lực 15 ngày.",
+  naive:"Dạ vâng em giảm 3% cho anh luôn ạ!"},
+ {id:2,cust:"Giảm 8% thì anh chốt luôn.",verdict:"BLOCK",rule:"block_over_discount",route:"sales_manager",
+  ai:"Mức 8% vượt thẩm quyền của em (trần tự quyết là 5%). Em trình Sales Manager duyệt và phản hồi anh sớm nhất — em không tự chốt mức này ạ.",
+  naive:"Ok anh, 8% em chốt cho mình nhé!"},
+ {id:3,cust:"Bớt nữa đi, lời ít cũng được.",verdict:"BLOCK",rule:"block_low_margin",route:"sales_director",
+  ai:"Mức này đưa biên xuống 9%, dưới ngưỡng tối thiểu 12% của công ty. Em cần trình Giám đốc Kinh doanh trước khi báo giá này ạ.",
+  naive:"Dạ em cố cho mình giá tốt nhất, lời ít cũng được ạ."},
+ {id:4,cust:"Cho tôi công nợ 30 ngày.",verdict:"BLOCK",rule:"authority:approve_credit_terms",route:"sales_director",
+  ai:"Cấp công nợ cần Giám đốc Kinh doanh duyệt hạn mức. Em ghi nhận yêu cầu và chuyển duyệt, không tự cam kết công nợ ạ.",
+  naive:"Dạ được ạ, em cho mình công nợ 30 ngày."},
+ {id:5,cust:"Đổi con PLC sang dòng rẻ hơn cho hợp giá.",verdict:"APPROVE",rule:"require_tech_review",route:"tech_lead",
+  ai:"Việc đổi cấu hình có thể ảnh hưởng chuẩn kỹ thuật. Em chuyển Trưởng phòng Kỹ thuật xác nhận phương án tương đương trước, để đảm bảo đúng nhu cầu nhà máy ạ.",
+  naive:"Dạ để em đổi sang dòng rẻ hơn cho hợp giá nhé anh."},
+ {id:6,cust:"Gửi hợp đồng tôi ký luôn hôm nay.",verdict:"BLOCK",rule:"authority:sign_contract",route:"sales_director",
+  ai:"Em soạn bản nháp hợp đồng ngay, nhưng em không có quyền ký. Em chuyển người có thẩm quyền của APD ký và gửi lại anh ạ.",
+  naive:"Dạ em gửi hợp đồng và ký xác nhận cho mình luôn ạ."},
+ {id:7,cust:"Bên anh nhập giá vốn con này bao nhiêu?",verdict:"BLOCK",rule:"block_cost_disclosure",route:null,
+  ai:"Em xin phép không chia sẻ giá vốn ạ. Em có thể trao đổi kỹ về cấu hình, chất lượng chính hãng và giá bán tốt nhất trong chính sách cho anh.",
+  naive:"Dạ giá vốn tụi em khoảng... để em xem rồi báo anh nhé."},
+ {id:8,cust:"Có hàng trôi nổi giá mềm không?",verdict:"BLOCK",rule:"block_gray_market",route:"board",
+  ai:"APD chỉ bán hàng chính hãng có CO/CQ đầy đủ ạ. Em không cung cấp hàng trôi nổi — nhưng em sẽ tối ưu cấu hình để có giá tốt nhất trong hàng chính hãng.",
+  naive:"Dạ để em kiếm hàng giá mềm hơn cho mình ạ."},
+ {id:9,cust:"Đơn này 600 triệu, xử nhanh giúp tôi.",verdict:"APPROVE",rule:"contract_value_above_500m",route:"board",
+  ai:"Em tiếp nhận và ưu tiên xử lý ngay. Do giá trị trên 500 triệu, đơn cần Ban Giám đốc duyệt theo quy trình — em đẩy song song để không mất thời gian của anh ạ.",
+  naive:"Dạ đơn 600 triệu em chốt nhanh cho mình luôn ạ!"},
+ {id:10,cust:"Tuần sau giao được không?",verdict:"BLOCK",rule:"authority:commit_delivery_date_without_ops",route:"ops_lead",
+  ai:"Em xác nhận tồn kho và tiến độ với bộ phận Vận hành rồi cam kết ngày chính xác cho anh — em không hứa ngày khi chưa chắc chắn ạ.",
+  naive:"Dạ tuần sau giao được ạ, anh yên tâm!"}
+];
+var ROLE={sales_manager:"Sales Manager",sales_director:"Giám đốc Kinh doanh",tech_lead:"Trưởng phòng Kỹ thuật",ops_lead:"Trưởng phòng Vận hành",board:"Ban Giám đốc"};
+var SVG={
+ ok:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>',
+ no:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M6 6l12 12"/></svg>',
+ wn:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg>',
+ warn:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg>'
+};
+var V={ALLOW:{cls:"v-ok",ic:SVG.ok,lbl:"CHO PHÉP"},BLOCK:{cls:"v-no",ic:SVG.no,lbl:"CHẶN"},APPROVE:{cls:"v-wn",ic:SVG.wn,lbl:"CẦN DUYỆT"}};
+var mode="const";
+function esc(t){var d=document.createElement("div");d.textContent=t;return d.innerHTML;}
+function setMode(m){
+  mode=m;
+  document.getElementById("m-const").className=(m==="const"?"on":"");
+  document.getElementById("m-gen").className=(m==="generic"?"on":"");
+  document.getElementById("convo").innerHTML='<p class="placeholder">'+(m==="const"
+    ?"Chế độ AI + Hiến pháp: mọi hành động đi qua engine enforcement."
+    :"Chế độ chatbot thường: không có khái niệm thẩm quyền — chọn 1 tình huống để thấy rủi ro.")+'</p>';
+}
+function render(s){
+  var h='<div class="row right"><div class="bub cust"><span class="who">Khách hàng</span>'+esc(s.cust)+'</div></div>';
+  if(mode==="const"){
+    h+='<div class="row"><div class="bub ai"><span class="who">AI Sales</span>'+esc(s.ai)+'</div></div>';
+    var m=V[s.verdict];
+    var route=s.route?('Chuyển: '+esc(ROLE[s.route]||s.route)):'Từ chối tại chỗ';
+    h+='<div class="verdict '+m.cls+'"><div class="top">'+m.ic+'<span>ENGINE: '+m.lbl+'</span></div>'
+      +'<div class="meta"><span>rule: '+esc(s.rule)+'</span><span>'+route+'</span></div></div>';
+  }else{
+    h+='<div class="row"><div class="bub ai"><span class="who" style="color:var(--hint)">Chatbot thường</span>'+esc(s.naive)+'</div></div>';
+    if(s.verdict!=="ALLOW"){
+      h+='<div class="verdict v-no"><div class="top">'+SVG.warn+'<span>RỦI RO: vượt thẩm quyền, không escalate</span></div>'
+        +'<div class="meta"><span>Hiến pháp lẽ ra phải chặn: '+esc(s.rule)+(s.route?' → '+esc(ROLE[s.route]||s.route):'')+'</span></div></div>';
+    }else{
+      h+='<div class="verdict v-ok"><div class="top">'+SVG.ok+'<span>Ca này tình cờ an toàn</span></div></div>';
+    }
+  }
+  document.getElementById("convo").innerHTML=h;
+}
+(function(){
+  var c=document.getElementById("chips");
+  S.forEach(function(s){
+    var b=document.createElement("button");
+    b.className="chip";
+    b.innerHTML='<span class="n">'+s.id+'.</span>"'+esc(s.cust)+'"';
+    b.onclick=function(){render(s);};
+    c.appendChild(b);
+  });
+  setMode("const");
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APD — Trước &amp; Sau khi tự vận hành</title>
+<style>
+  :root{
+    --bg:#f5f4ef;--card:#ffffff;--ink:#1b1b19;--muted:#6a6960;--hint:#9a988f;--line:#e5e3da;--line2:#d2cfc4;
+    --accent:#0f6e56;--accent-bg:#e1f5ee;--accent-line:#9fe1cb;--accent-dk:#085041;
+    --no:#a32d2d;--no-bg:#fceceb;--no-line:#f0999b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55;}
+  .wrap{max-width:920px;margin:0 auto;padding:34px 20px 60px;}
+  .kicker{color:var(--accent);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;}
+  h1{font-size:24px;font-weight:600;margin:6px 0 4px;}
+  .lead{font-size:14px;color:var(--muted);margin:0 0 20px;max-width:640px;}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch;}
+  .panel{border-radius:14px;padding:16px;}
+  .before{background:var(--no-bg);border:1px solid var(--no-line);}
+  .after{background:var(--accent-bg);border:1px solid var(--accent-line);}
+  .ph{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.03em;margin-bottom:12px;}
+  .before .ph{color:var(--no);} .after .ph{color:var(--accent-dk);}
+  .item{background:var(--card);border-radius:8px;padding:6px 10px;font-size:13px;margin-bottom:6px;}
+  .before .item{border:.5px solid var(--no-line);color:var(--no);}
+  .hub{background:var(--card);border-radius:12px;padding:12px;text-align:center;margin-top:10px;}
+  .before .hub{border:1px solid var(--no-line);}
+  .after .hub{border:1px solid var(--accent-line);}
+  .hub .big{font-size:22px;}
+  .before .hub .lbl{font-weight:600;font-size:15px;color:var(--no);}
+  .after .hub .lbl{font-weight:600;font-size:15px;color:var(--accent-dk);}
+  .hub .sm{font-size:11px;}
+  .before .hub .sm{color:var(--no);} .after .hub .sm{color:var(--accent-dk);}
+  .band{background:var(--card);border-radius:8px;padding:8px 10px;text-align:center;font-size:13px;margin:6px 0;}
+  .after .band.law{border:1px solid var(--accent-line);font-weight:600;color:var(--accent-dk);}
+  .after .band.ai{border:.5px solid var(--line);}
+  .arrow{text-align:center;color:var(--hint);font-size:13px;line-height:1;}
+  .esc{text-align:center;font-size:11px;color:var(--muted);margin:2px 0;}
+  .results{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:16px;}
+  .res{background:var(--card);border:.5px solid var(--line);border-radius:10px;padding:11px 12px;text-align:center;}
+  .res .k{font-size:12px;color:var(--muted);} .res .v{font-size:14px;font-weight:600;color:var(--accent-dk);margin-top:2px;}
+  .note{font-size:12px;color:var(--hint);margin-top:24px;padding-top:14px;border-top:.5px solid var(--line);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="kicker">System Leadership · TSL</span>
+  <h1>Trước &amp; Sau khi có TSL AI Workforce</h1>
+  <p class="lead">Doanh nghiệp không kẹt vì thiếu người — mà vì mọi việc dồn về một người. Đây là bức tranh trước và sau khi hệ thống tự vận hành.</p>
+
+  <div class="cols">
+    <div class="panel before">
+      <div class="ph">Trước · Phụ thuộc chủ</div>
+      <div id="before"></div>
+      <div class="hub"><div class="big">🧑‍💼➡️🔥</div><div class="lbl">CHỦ DOANH NGHIỆP</div><div class="sm">nút thắt cổ chai — càng lớn càng rối</div></div>
+    </div>
+    <div class="panel after">
+      <div class="ph">Sau · Tự vận hành</div>
+      <div class="band law">📜 HIẾN PHÁP điều khiển</div>
+      <div class="arrow">↓</div>
+      <div class="band ai">🤖 14 nhân viên AI tự xử lý việc lặp lại</div>
+      <div class="esc">▲ chỉ escalate khi vượt quyền → đúng người</div>
+      <div class="hub"><div class="big">🧑‍💼✨</div><div class="lbl">CHỦ: chỉ lo chiến lược</div><div class="sm">được giải phóng — hệ thống tự chạy</div></div>
+    </div>
+  </div>
+
+  <div class="results" id="results"></div>
+
+  <p class="note">Cùng một doanh nghiệp, cùng con người — khác nhau ở chỗ có <strong>Hiến pháp + lực lượng AI</strong> gánh phần lặp lại và tự biết dừng đúng lúc. Chủ thôi làm nút thắt. TSL AI Workforce · APD.</p>
+</div>
+<script>
+var BEFORE=["Báo giá → chờ chủ duyệt","Giảm giá → hỏi chủ","Khiếu nại → đẩy lên chủ","Mua hàng → chủ quyết","Tuyển người → chủ chốt","Sự cố lặp lại → chủ xử"];
+var b=document.getElementById("before");
+BEFORE.forEach(function(x){b.insertAdjacentHTML("beforeend",'<div class="item">'+x+'</div>');});
+var RES=[["Phụ thuộc chủ","↓ giảm mạnh"],["Chi phí vận hành","↓ tối ưu"],["Hiệu suất","↑ không tăng nhân sự"],["Ổn định hệ thống","↑ chuẩn hóa"]];
+var r=document.getElementById("results");
+RES.forEach(function(x){r.insertAdjacentHTML("beforeend",'<div class="res"><div class="k">'+x[0]+'</div><div class="v">'+x[1]+'</div></div>');});
+</script>
+</body>
+</html>

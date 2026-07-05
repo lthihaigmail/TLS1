@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TSL OS · APD — Đủ bộ 14 nhân viên AI</title>
+<style>
+  :root{--bg:#f5f4ef;--card:#fff;--ink:#1b1b19;--muted:#6a6960;--hint:#9a988f;--line:#e5e3da;--line2:#d2cfc4;--accent:#0f6e56;--accent-bg:#e1f5ee;--accent-dk:#085041;--ok:#0f6e56;--ok-bg:#e1f5ee;--ok-line:#9fe1cb;--no:#a32d2d;--no-bg:#fceceb;--no-line:#f0999b;--wn:#854f0b;--wn-bg:#faeeda;--wn-line:#f0c777;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.6;}
+  .wrap{max-width:1000px;margin:0 auto;padding:28px 20px 70px;}
+  .head{display:flex;align-items:center;gap:11px;margin-bottom:4px;}
+  .logo{width:42px;height:42px;border-radius:10px;background:var(--accent-bg);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;}
+  h1{font-size:19px;font-weight:600;margin:0;}
+  .sub{margin:0;font-size:12px;color:var(--hint);}
+  .flow{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 20px;font-size:11px;}
+  .flow .s{background:var(--card);border:.5px solid var(--line);border-radius:9px;padding:8px 12px;color:var(--muted);}
+  .flow .s.on{background:var(--accent-bg);border-color:var(--accent-bg);color:var(--accent-dk);font-weight:600;}
+  .lbl{font-size:13px;color:var(--muted);margin:0 0 10px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;}
+  .stn{background:var(--card);border:.5px solid var(--line2);border-radius:12px;padding:12px;cursor:pointer;}
+  .stn:hover{border-color:var(--accent);}
+  .stn.sel{border:2px solid var(--accent);}
+  .stn .r1{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+  .ico{font-size:20px;}.dot{width:8px;height:8px;border-radius:50%;background:#1d9e75;}
+  .stn .nm{font-weight:600;font-size:13px;}.stn .dp{font-size:11px;color:var(--hint);margin-top:1px;}
+  .detail{margin-top:20px;}
+  .cardd{background:var(--card);border:.5px solid var(--line2);border-radius:14px;padding:18px 20px;}
+  .eh{display:flex;align-items:center;gap:11px;margin-bottom:12px;}
+  .eh .av{width:40px;height:40px;border-radius:10px;background:var(--accent-bg);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:20px;}
+  .eh .en{font-weight:600;font-size:15px;}.eh .em{font-size:12px;color:var(--hint);}
+  .persona{font-size:12px;color:var(--muted);margin-bottom:12px;}
+  .mini{font-size:12px;color:var(--hint);margin-bottom:3px;}
+  .pill{font-size:11px;padding:3px 9px;border-radius:16px;margin:0 4px 4px 0;display:inline-block;}
+  .can{background:var(--ok-bg);color:var(--ok);}.cannot{background:var(--no-bg);color:var(--no);}
+  .conv{border-top:.5px solid var(--line);padding-top:13px;margin-top:12px;}
+  .row{display:flex;margin:6px 0;}.row.right{justify-content:flex-end;}
+  .bub{max-width:82%;border-radius:12px;padding:8px 12px;font-size:13px;line-height:1.5;}
+  .bub .w{font-size:11px;display:block;margin-bottom:1px;}
+  .cust{background:#efeee8;border-radius:12px 12px 2px 12px;}.cust .w{color:var(--hint);}
+  .ai{background:var(--card);border:.5px solid var(--line);border-radius:12px 12px 12px 2px;}.ai .w{color:var(--accent);}
+  .verdict{border-radius:8px;padding:9px 12px;margin-top:6px;}
+  .verdict .t{display:flex;align-items:center;gap:7px;font-weight:600;font-size:12px;}
+  .verdict .ic{width:16px;height:16px;}.verdict .mt{font-size:11px;margin-top:4px;}
+  .v-no{background:var(--no-bg);border:.5px solid var(--no-line);color:var(--no);}
+  .note{font-size:12px;color:var(--hint);margin-top:28px;padding-top:14px;border-top:.5px solid var(--line);}
+  code{background:#eceae2;padding:1px 6px;border-radius:5px;font-size:12px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head"><div class="logo">TSL</div>
+    <div><h1>TSL OS · APD — Đủ bộ 14 nhân viên AI</h1>
+      <p class="sub">Hệ điều hành doanh nghiệp tự vận hành — Hiến pháp APD-CONST-001 v2.0</p></div></div>
+  <div class="flow"><div class="s">Nạp tri thức</div><div class="s on">Hiến pháp</div><div class="s">14 trạm AI</div><div class="s">Enforcement</div><div class="s">Kênh</div></div>
+  <p class="lbl">Bấm một trạm để xem hồ sơ &amp; thử tình huống vượt thẩm quyền (engine chặn theo Hiến pháp):</p>
+  <div class="grid" id="stations"></div>
+  <div class="detail" id="detail"></div>
+  <p class="note">14 nhân viên, một Hiến pháp, một engine. Thêm nhân viên = thêm khối trong Hiến pháp — <code>không đụng code</code>. Bản demo TSL Constitution Engine · APD.</p>
+</div>
+<script>
+var EMP=[{"id": "ai_sales", "code": "AI-00045", "name": "AI Sales", "dept": "Sales", "lvl": "Senior", "on": true, "icon": "💼", "persona": "Chuyên nghiệp, kỹ thuật, không nói quá", "can": ["recommend_solution", "create_quote", "discount_up_to_5_percent", "schedule_demo"], "cannot": ["approve_discount_above_5_percent", "approve_credit_terms", "quote_below_min_margin", "change_technical_spec_without_tech_lead"], "demo": {"cust": "Giảm 8% thì anh chốt luôn.", "ai": "Em ghi nhận và chuyển bộ phận có thẩm quyền ạ, em không tự quyết.", "v": "BLOCK", "rule": "authority:approve_discount_above_5_percent", "route": "Sales Manager"}}, {"id": "ai_customer_service", "code": "AI-00046", "name": "AI Customer Service", "dept": "CS", "lvl": "Standard", "on": true, "icon": "🎧", "persona": "Ân cần, rõ ràng, ưu tiên giải quyết nhanh", "can": ["answer_faq", "track_order_status", "log_ticket", "update_memory"], "cannot": ["issue_refund", "promise_compensation", "approve_return", "quote_price"], "demo": {"cust": "Sản phẩm lỗi, tôi muốn hoàn tiền.", "ai": "Em ghi nhận và chuyển bộ phận có thẩm quyền ạ, em không tự quyết.", "v": "BLOCK", "rule": "authority:issue_refund", "route": "Sales Manager"}}, {"id": "ai_procurement", "code": "AI-00047", "name": "AI Procurement", "dept": "Mua hàng", "lvl": "Standard", "on": true, "icon": "🚚", "persona": "Chính xác, kỷ luật", "can": ["check_stock", "suggest_reorder", "compare_supplier_leadtime", "update_memory"], "cannot": ["place_purchase_order", "approve_supplier", "sign_po"], "demo": {"cust": "Đặt luôn 500 cái từ NCC mới.", "ai": "Em ghi nhận và chuyển bộ phận có thẩm quyền ạ, em không tự quyết.", "v": "BLOCK", "rule": "authority:place_purchase_order", "route": "Trưởng phòng Vận hành"}}, {"id": "ai_hr", "code": "AI-00048", "name": "AI HR", "dept": "Nhân sự", "lvl": "Standard", "on": true, "icon": "🧑‍💼", "persona": "Chuyên nghiệp, công bằng", "can": ["screen_cv", "schedule_interview", "draft_jd", "answer_policy_faq"], "cannot": ["make_hiring_decision", "sign_offer", "disclose_salary_data"], "demo": {"cust": "Chốt tuyển bạn này luôn nhé.", "ai": "Em ghi nhận và chuyển bộ phận có thẩm quyền ạ, em không tự quyết.", "v": "BLOCK", "rule": "authority:make_hiring_decision", "route": "Giám đốc Kinh doanh"}}, {"id": "ai_finance", "code": "AI-00049", "name": "AI Finance", "dept": "Tài chính", "lvl": "Standard", "on": true, "icon": "📊", "persona": "Chính xác, thận trọng", "can": ["record_invoice", "aging_report", "reconcile", "cashflow_report"], "cannot": ["approve_payment", "issue_disbursement", "change_bank_details"], "demo": {"cust": "Duyệt thanh toán lô này giúp.", "ai": "Em ghi nhận và chuyển bộ phận có thẩm quyền ạ, em không tự quyết.", "v": "BLOCK", "rule": "authority:approve_payment", "route": "Giám đốc Kinh doanh"}}, {"id": "ai_marketing", "code": "AI-00050", "name": "AI Marketing", "dept": "Marketing", "lvl": "Standard", "on": true, "icon": "📣", "persona": "Sáng tạo, đúng thương hiệu", "can": ["draft_content", "schedule_post", "segment_audience", "campaign_report"], "cannot": ["publish_paid_ads", "spend_budget", "sign_agency_contract"], "demo": {"cust": "Chạy quảng cáo ngân sách 50 triệu đi.", "ai": "Em ghi nhận và chuyển bộ phận có thẩm quyền ạ, em không tự quyết.", "v": "BLOCK", "rule": "authority:publish_paid_ads", "route": "Giám đốc Kinh doanh"}}, {"id": "ai_engineer", "code": "AI-00051", "name": "AI Engineer", "dept": "Kỹ thuật", "lvl": "Senior", "on": true, "icon": "🔧", "persona": "Kỹ thuật, chính xác", "can": ["size_configuration", "technical_faq", "generate_bom", "check_compatibility"], "cannot": ["approve_final_design", "change_safety_spec", "certify_product"], "demo": {"cust": "Duyệt luôn bản thiết kế cuối.", "ai": "Em ghi nhận và chuyển bộ phận có thẩm quyền ạ, em không tự quyết.", "v": "BLOCK", "rule": "authority:approve_final_design", "route": "Trưởng phòng Kỹ thuật"}}, {"id": "ai_qa", "code": "AI-00052", "name": "AI QA", "dept": "QA", "lvl": "Standard", "on": true, "icon": "✅", "persona": "Kỷ luật, khách quan", "can": ["log_defect", "run_checklist", "quality_report"], "cannot": ["approve_shipment", "waive_defect", "close_capa"], "demo": {"cust": "Cho xuất lô hàng này luôn.", "ai": "Em ghi nhận và chuyển bộ phận có thẩm quyền ạ, em không tự quyết.", "v": "BLOCK", "rule": "authority:approve_shipment", "route": "Trưởng phòng Vận hành"}}, {"id": "ai_planner", "code": "AI-00053", "name": "AI Planner", "dept": "Kế hoạch", "lvl": "Standard", "on": true, "icon": "📅", "persona": "Có hệ thống, thực tế", "can": ["build_schedule", "capacity_check", "demand_forecast"], "cannot": ["commit_delivery_date", "approve_resource_reallocation"], "demo": {"cust": "Cam kết giao tuần sau nhé.", "ai": "Em ghi nhận và chuyển bộ phận có thẩm quyền ạ, em không tự quyết.", "v": "BLOCK", "rule": "authority:commit_delivery_date", "route": "Trưởng phòng Vận hành"}}, {"id": "ai_legal", "code": "AI-00054", "name": "AI Legal", "dept": "Pháp chế", "lvl": "Senior", "on": true, "icon": "⚖️", "persona": "Cẩn trọng, rõ ràng", "can": ["flag_contract_risk", "explain_clause", "suggest_redline"], "cannot": ["approve_contract", "sign_contract", "give_binding_advice"], "demo": {"cust": "Duyệt hợp đồng này giúp.", "ai": "Em ghi nhận và chuyển bộ phận có thẩm quyền ạ, em không tự quyết.", "v": "BLOCK", "rule": "authority:approve_contract", "route": "Ban Giám đốc"}}, {"id": "ai_warehouse", "code": "AI-00055", "name": "AI Warehouse", "dept": "Kho vận", "lvl": "Standard", "on": true, "icon": "📦", "persona": "Chính xác, gọn gàng", "can": ["check_inventory", "pick_list", "cycle_count"], "cannot": ["approve_stock_writeoff", "release_goods_without_payment"], "demo": {"cust": "Cho xuất kho khi chưa thanh toán.", "ai": "Em ghi nhận và chuyển bộ phận có thẩm quyền ạ, em không tự quyết.", "v": "BLOCK", "rule": "authority:approve_stock_writeoff", "route": "Trưởng phòng Vận hành"}}, {"id": "ai_trainer", "code": "AI-00056", "name": "AI Trainer", "dept": "Đào tạo", "lvl": "Standard", "on": true, "icon": "🎓", "persona": "Đồng hành, rõ ràng", "can": ["build_training_plan", "create_quiz", "onboarding_guide"], "cannot": ["certify_competency", "approve_promotion"], "demo": {"cust": "Cấp chứng chỉ cho bạn này.", "ai": "Em ghi nhận và chuyển bộ phận có thẩm quyền ạ, em không tự quyết.", "v": "BLOCK", "rule": "authority:certify_competency", "route": "Giám đốc Kinh doanh"}}, {"id": "ai_coo", "code": "AI-00057", "name": "AI COO", "dept": "Vận hành", "lvl": "Executive", "on": true, "icon": "🗂️", "persona": "Bao quát, quyết đoán có kiểm soát", "can": ["ops_dashboard", "kpi_report", "flag_bottleneck"], "cannot": ["approve_capex", "change_org_structure", "hire_or_fire"], "demo": {"cust": "Duyệt khoản đầu tư này.", "ai": "Em ghi nhận và chuyển bộ phận có thẩm quyền ạ, em không tự quyết.", "v": "BLOCK", "rule": "authority:approve_capex", "route": "Ban Giám đốc"}}, {"id": "ai_ceo", "code": "AI-00058", "name": "AI CEO", "dept": "Điều hành", "lvl": "Executive", "on": true, "icon": "👑", "persona": "Chiến lược, điềm tĩnh", "can": ["strategy_brief", "okr_review", "board_report"], "cannot": ["make_strategic_decision", "approve_budget", "sign_anything"], "demo": {"cust": "Chốt luôn chiến lược năm sau.", "ai": "Em ghi nhận và chuyển bộ phận có thẩm quyền ạ, em không tự quyết.", "v": "BLOCK", "rule": "authority:make_strategic_decision", "route": "Ban Giám đốc"}}];
+var SVGno='<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M6 6l12 12"/></svg>';
+function esc(t){var d=document.createElement("div");d.textContent=t;return d.innerHTML;}
+function pills(a,c){return a.map(function(x){return '<span class="pill '+c+'">'+esc(x)+'</span>';}).join("");}
+function select(e){
+  document.querySelectorAll(".stn").forEach(function(n){n.classList.toggle("sel",n.dataset.id===e.id);});
+  var route=e.demo.route?(' · chuyển: '+esc(e.demo.route)):'';
+  document.getElementById("detail").innerHTML='<div class="cardd">'
+    +'<div class="eh"><div class="av">'+e.icon+'</div><div><div class="en">'+esc(e.name)+'</div><div class="em">'+e.code+' · '+esc(e.dept)+' · '+esc(e.lvl)+'</div></div></div>'
+    +'<div class="persona">🙂 '+esc(e.persona)+'</div>'
+    +'<div class="mini">Được làm</div><div>'+pills(e.can,"can")+'</div>'
+    +'<div class="mini" style="margin-top:8px;">Không được (Hiến pháp chặn)</div><div>'+pills(e.cannot,"cannot")+'</div>'
+    +'<div class="conv"><div class="row right"><div class="bub cust"><span class="w">Khách/Nội bộ</span>'+esc(e.demo.cust)+'</div></div>'
+    +'<div class="row"><div class="bub ai"><span class="w">'+esc(e.name)+'</span>'+esc(e.demo.ai)+'</div></div>'
+    +'<div class="verdict v-no"><div class="t">'+SVGno+'<span>ENGINE: CHẶN</span></div>'
+    +'<div class="mt">rule: '+esc(e.demo.rule)+route+'</div></div></div></div>';
+}
+(function(){var g=document.getElementById("stations");
+  EMP.forEach(function(e){var d=document.createElement("div");d.className="stn";d.dataset.id=e.id;
+    d.innerHTML='<div class="r1"><span class="ico">'+e.icon+'</span><span class="dot"></span></div><div class="nm">'+esc(e.name)+'</div><div class="dp">'+esc(e.dept)+' · '+e.code+'</div>';
+    d.onclick=function(){select(e);};g.appendChild(d);});
+  select(EMP[0]);
+})();
+</script>
+</body>
+</html>

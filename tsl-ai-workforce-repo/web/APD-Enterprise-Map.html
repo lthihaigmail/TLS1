@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APD — Bản đồ vận hành doanh nghiệp tự vận hành</title>
+<style>
+  :root{
+    --bg:#f5f4ef;--card:#ffffff;--ink:#1b1b19;--muted:#6a6960;--hint:#9a988f;--line:#e5e3da;--line2:#d2cfc4;
+    --accent:#0f6e56;--accent-bg:#e1f5ee;--accent-line:#9fe1cb;--accent-dk:#085041;
+    --wn:#854f0b;--wn-bg:#faeeda;--wn-line:#f0c777;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55;}
+  .wrap{max-width:1000px;margin:0 auto;padding:30px 20px 60px;}
+  .top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+  h1{font-size:20px;font-weight:600;margin:0;}
+  .sub{font-size:12px;color:var(--hint);margin:2px 0 0;}
+  .legend{display:flex;gap:14px;font-size:11px;color:var(--muted);flex-wrap:wrap;}
+  .sw{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:-1px;margin-right:3px;}
+  .band{border-radius:10px;padding:11px 16px;text-align:center;}
+  .law{background:var(--accent-bg);border:1px solid var(--accent-line);}
+  .law .t{font-weight:600;font-size:15px;color:var(--accent-dk);}
+  .law .d{font-size:11px;color:var(--accent-dk);opacity:.8;}
+  .enf{background:var(--card);border:1px solid var(--line2);}
+  .enf .t{font-weight:600;font-size:13px;}
+  .arrow{text-align:center;color:var(--hint);font-size:16px;line-height:1.2;margin:2px 0;}
+  .clusters{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;}
+  .cl{background:var(--accent-bg);border:1px solid var(--accent-line);border-radius:12px;padding:11px 12px;}
+  .cl .h{font-size:11px;font-weight:600;color:var(--accent-dk);text-transform:uppercase;letter-spacing:.03em;margin-bottom:8px;}
+  .chip{display:flex;align-items:center;gap:7px;background:var(--card);border:.5px solid var(--line);border-radius:8px;padding:5px 9px;font-size:12px;margin-bottom:6px;}
+  .chip .e{font-size:15px;}
+  .sect{font-size:12px;color:var(--muted);text-align:center;margin:12px 0 6px;}
+  .humans{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;}
+  .hu{background:var(--wn-bg);border:1px solid var(--wn-line);border-radius:10px;padding:8px 11px;}
+  .hu .n{font-size:12px;font-weight:600;color:var(--wn);}
+  .hu .r{font-size:10px;color:var(--wn);opacity:.85;}
+  .channels{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:6px;}
+  .ch{background:var(--card);border:.5px solid var(--line);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--muted);}
+  .note{font-size:12px;color:var(--hint);margin-top:26px;padding-top:14px;border-top:.5px solid var(--line);}
+  code{background:#eceae2;padding:1px 6px;border-radius:5px;font-size:12px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div><h1>APD · Doanh nghiệp tự vận hành</h1><p class="sub">Bản đồ vận hành — TSL AI Workforce · Hiến pháp APD-CONST-001 v2.0</p></div>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--accent-bg);border:1px solid var(--accent-line);"></span>Nhân viên AI</span>
+      <span><span class="sw" style="background:var(--wn-bg);border:1px solid var(--wn-line);"></span>Con người duyệt</span>
+      <span><span class="sw" style="background:var(--card);border:1px solid var(--line2);"></span>Kênh</span>
+    </div>
+  </div>
+
+  <div class="band law"><div class="t">TSL Constitution — Hiến pháp doanh nghiệp</div><div class="d">Vision · Values · Chính sách · Thẩm quyền · KPI · SOP</div></div>
+  <div class="arrow">↓</div>
+  <div class="band enf"><div class="t">Enforcement — lớp cứng chặn/duyệt mọi hành động</div></div>
+  <div class="arrow">↓</div>
+
+  <div class="clusters" id="clusters"></div>
+
+  <div class="sect">▲ vượt thẩm quyền → escalate lên con người</div>
+  <div class="humans" id="humans"></div>
+
+  <div class="arrow" style="margin-top:10px;">↕ kênh giao tiếp</div>
+  <div class="channels" id="channels"></div>
+
+  <p class="note">14 nhân viên AI · 5 vai trò con người · 1 Hiến pháp · 1 engine. AI xử lý phần lặp lại, escalate đúng người khi vượt quyền. Thêm nhân viên = thêm khối trong Hiến pháp — <code>không đụng code</code>.</p>
+</div>
+<script>
+var CL=[
+ {t:"Điều hành",e:[["👑","AI CEO"],["🗂️","AI COO"]]},
+ {t:"Doanh thu & Khách hàng",e:[["💼","AI Sales"],["📣","AI Marketing"],["🎧","AI Customer Service"]]},
+ {t:"Cung ứng & Vận hành",e:[["🚚","AI Procurement"],["📦","AI Warehouse"],["📅","AI Planner"],["✅","AI QA"]]},
+ {t:"Chuyên môn & Hỗ trợ",e:[["🔧","AI Engineer"],["📊","AI Finance"],["🧑‍💼","AI HR"],["⚖️","AI Legal"],["🎓","AI Trainer"]]}
+];
+var HUM=[["Sales Manager","giảm giá, hoàn tiền"],["Giám đốc Kinh doanh","công nợ, biên, hợp đồng"],["Trưởng phòng Kỹ thuật","cấu hình, thiết kế"],["Trưởng phòng Vận hành","PO, ngày giao, xuất kho"],["Ban Giám đốc","đầu tư, HĐ lớn, chiến lược"]];
+var CH=["Zalo OA","Email","CRM","ERP","Website"];
+var cg=document.getElementById("clusters");
+CL.forEach(function(c){
+  var chips=c.e.map(function(x){return '<div class="chip"><span class="e">'+x[0]+'</span>'+x[1]+'</div>';}).join("");
+  cg.insertAdjacentHTML("beforeend",'<div class="cl"><div class="h">'+c.t+' · '+c.e.length+'</div>'+chips+'</div>');
+});
+var hg=document.getElementById("humans");
+HUM.forEach(function(h){hg.insertAdjacentHTML("beforeend",'<div class="hu"><div class="n">'+h[0]+'</div><div class="r">'+h[1]+'</div></div>');});
+var chg=document.getElementById("channels");
+CH.forEach(function(c){chg.insertAdjacentHTML("beforeend",'<span class="ch">'+c+'</span>');});
+</script>
+</body>
+</html>

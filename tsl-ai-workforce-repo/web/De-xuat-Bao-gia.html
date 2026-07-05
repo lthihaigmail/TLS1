@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đề xuất &amp; Báo giá — TSL AI Workforce Pilot</title>
+<style>
+  :root{
+    --bg:#f5f4ef; --card:#ffffff; --ink:#1b1b19; --muted:#63625a; --hint:#9a988f;
+    --line:#e5e3da; --line2:#d2cfc4; --accent:#0f6e56; --accent-bg:#e1f5ee; --accent-dk:#085041;
+    --wn-bg:#faeeda; --wn:#854f0b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.65;}
+  .page{max-width:820px;margin:0 auto;background:var(--card);padding:48px 54px 64px;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+  .bar{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--accent);padding-bottom:18px;margin-bottom:8px;}
+  .brand{font-weight:700;font-size:16px;color:var(--accent-dk);}
+  .brand small{display:block;font-weight:400;font-size:12px;color:var(--hint);margin-top:2px;}
+  .doc-t{text-align:right;font-size:12px;color:var(--hint);}
+  .kicker{color:var(--accent);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-top:22px;}
+  h1{font-size:25px;font-weight:600;margin:6px 0 6px;}
+  .to{background:var(--accent-bg);border-radius:10px;padding:12px 16px;font-size:13px;margin:16px 0 8px;color:var(--accent-dk);}
+  .fill{background:var(--wn-bg);color:var(--wn);border-radius:6px;padding:0 6px;font-weight:600;}
+  h2{font-size:17px;font-weight:600;margin:30px 0 8px;padding-bottom:6px;border-bottom:.5px solid var(--line);display:flex;align-items:center;gap:8px;}
+  h2 .n{background:var(--accent);color:#fff;width:22px;height:22px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;}
+  p{margin:8px 0;font-size:14px;}
+  ul{margin:8px 0;padding-left:20px;} li{margin:5px 0;font-size:14px;}
+  .prob li{color:var(--muted);}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;}
+  th,td{text-align:left;padding:9px 11px;border-bottom:.5px solid var(--line);vertical-align:top;}
+  th{background:#faf9f5;color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.03em;}
+  td.r,th.r{text-align:right;white-space:nowrap;}
+  .price-hi{background:var(--accent-bg);}
+  .price-hi td{font-weight:700;color:var(--accent-dk);font-size:15px;}
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0;}
+  .tier{border:.5px solid var(--line2);border-radius:12px;padding:16px;}
+  .tier.feat{border:2px solid var(--accent);}
+  .tier .badge{font-size:11px;background:var(--accent);color:#fff;padding:2px 9px;border-radius:20px;font-weight:600;}
+  .tier .tn{font-weight:600;font-size:14px;margin:10px 0 2px;}
+  .tier .tp{font-size:20px;font-weight:700;color:var(--accent-dk);}
+  .tier .tp small{font-size:12px;font-weight:400;color:var(--hint);}
+  .tier ul{padding-left:16px;margin:8px 0 0;} .tier li{font-size:12px;color:var(--muted);}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0;}
+  .step{background:#faf9f5;border-radius:10px;padding:12px;font-size:12px;}
+  .step b{display:block;color:var(--accent-dk);margin-bottom:3px;font-size:13px;}
+  .terms{font-size:13px;} .terms td{padding:7px 11px;}
+  .cta{background:var(--accent-bg);border-radius:12px;padding:18px 20px;margin-top:24px;}
+  .cta b{color:var(--accent-dk);}
+  .sign{display:flex;justify-content:space-between;margin-top:40px;gap:30px;}
+  .sign div{flex:1;text-align:center;font-size:13px;color:var(--muted);border-top:.5px solid var(--line2);padding-top:8px;}
+  .foot{margin-top:34px;padding-top:14px;border-top:.5px solid var(--line);font-size:11px;color:var(--hint);text-align:center;}
+  .noprint{margin:0 auto 14px;max-width:820px;}
+  .printbtn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
+  @media print{ body{background:#fff;} .page{box-shadow:none;padding:0 8px;} .noprint{display:none;} }
+  @media(max-width:680px){ .tiers,.steps{grid-template-columns:1fr;} .page{padding:30px 22px;} }
+</style>
+</head>
+<body>
+<div class="noprint" style="padding-top:16px;">
+  <button class="printbtn" onclick="window.print()">In / Lưu PDF</button>
+  <span style="font-size:12px;color:var(--hint);margin-left:10px;">Thay các ô <span class="fill">[ ]</span> bằng thông tin khách trước khi gửi.</span>
+</div>
+
+<div class="page">
+  <div class="bar">
+    <div class="brand">Emmy Lê Thị Hải<small>System Leadership Coach · TSL Framework</small></div>
+    <div class="doc-t">Số: TSL-<span class="fill">[YYYY-NN]</span><br>Ngày: <span class="fill">[../../....]</span><br>Hiệu lực: 15 ngày</div>
+  </div>
+
+  <div class="kicker">Đề xuất triển khai</div>
+  <h1>TSL AI Workforce — Pilot Nhân viên AI vận hành theo Hiến pháp doanh nghiệp</h1>
+  <div class="to"><b>Kính gửi:</b> <span class="fill">[TÊN DOANH NGHIỆP]</span> &nbsp;·&nbsp; <b>Người nhận:</b> <span class="fill">[Chức danh — Họ tên]</span> &nbsp;·&nbsp; <b>Ngành:</b> <span class="fill">[Ngành]</span></div>
+
+  <h2><span class="n">1</span>Vấn đề</h2>
+  <ul class="prob">
+    <li>Doanh nghiệp phụ thuộc vào cá nhân: xử lý khách, báo giá, quyết định nằm trong đầu vài người chủ chốt.</li>
+    <li>Chatbot/AI hiện có không hiểu thẩm quyền — có thể tự ý giảm giá, hứa tiến độ, lộ thông tin, gây rủi ro thật.</li>
+    <li>Càng tăng trưởng càng mất kiểm soát: sự cố lặp lại, không có quy trình và ranh giới rõ ràng.</li>
+  </ul>
+
+  <h2><span class="n">2</span>Giải pháp — TSL Constitution + AI Workforce</h2>
+  <p>Chuẩn hóa cách doanh nghiệp vận hành thành một <b>Hiến pháp máy đọc được</b> (Vision → Chính sách → SOP → KPI → Thẩm quyền), rồi triển khai một <b>Nhân viên AI</b> chạy đúng theo Hiến pháp đó. Mọi hành động của AI đi qua lớp <b>enforcement tất định</b> — chặn/duyệt trước khi thực thi, không phụ thuộc “AI có nghe lời”.</p>
+  <p style="color:var(--muted);font-size:13px;">Khác biệt cốt lõi: đây không phải chatbot. Đây là nhân viên số có thẩm quyền giới hạn, có KPI, biết escalate đúng người — giảm rủi ro và giảm phụ thuộc vào chủ doanh nghiệp.</p>
+
+  <h2><span class="n">3</span>Phạm vi gói Pilot (4 tuần)</h2>
+  <div class="steps">
+    <div class="step"><b>Tuần 1</b>Khảo sát &amp; soạn Hiến pháp doanh nghiệp (Vision → Thẩm quyền)</div>
+    <div class="step"><b>Tuần 2</b>Dựng 1 Nhân viên AI (AI Sales) + cấu hình enforcement theo chính sách khách</div>
+    <div class="step"><b>Tuần 3</b>Chạy bộ test tình huống, tinh chỉnh policy &amp; thẩm quyền</div>
+    <div class="step"><b>Tuần 4</b>Nghiệm thu, bàn giao &amp; đào tạo đội ngũ</div>
+  </div>
+
+  <h2><span class="n">4</span>Output — Bạn nhận được gì</h2>
+  <table>
+    <tr><th>#</th><th>Hạng mục bàn giao</th></tr>
+    <tr><td>1</td><td><b>TSL Constitution</b> của doanh nghiệp — file máy đọc được (Vision, giá trị, chính sách, ma trận phê duyệt, SOP, KPI, thẩm quyền).</td></tr>
+    <tr><td>2</td><td><b>1 Nhân viên AI (AI Sales)</b> — spec 10 lớp + runtime prompt vận hành.</td></tr>
+    <tr><td>3</td><td><b>Enforcement engine</b> cấu hình theo đúng chính sách của doanh nghiệp.</td></tr>
+    <tr><td>4</td><td><b>Bộ test tình huống</b> + báo cáo nghiệm thu (AI-Constitution vs chatbot thường).</td></tr>
+    <tr><td>5</td><td><b>3 bản demo tương tác</b> (Hiến pháp · Enforcement Studio · TSL OS Console).</td></tr>
+    <tr><td>6</td><td><b>Buổi bàn giao + đào tạo</b> để đội ngũ tự vận hành và cập nhật Hiến pháp.</td></tr>
+  </table>
+
+  <h2><span class="n">5</span>Báo giá</h2>
+  <div class="tiers">
+    <div class="tier feat">
+      <span class="badge">Khuyến nghị</span>
+      <div class="tn">Pilot — AI Sales</div>
+      <div class="tp">68.000.000<small> đ</small></div>
+      <ul><li>4 tuần · 1 trạm AI</li><li>Constitution + enforcement</li><li>Test + bàn giao + đào tạo</li></ul>
+    </div>
+    <div class="tier">
+      <div class="tn">Mở rộng thêm trạm AI</div>
+      <div class="tp">+25.000.000<small> đ/trạm</small></div>
+      <ul><li>AI CS / Procurement / HR...</li><li>Dùng chung Hiến pháp</li><li>Thêm sau Pilot</li></ul>
+    </div>
+    <div class="tier">
+      <div class="tn">Vận hành &amp; Coaching</div>
+      <div class="tp">20.000.000<small> đ/tháng</small></div>
+      <ul><li>Nối kênh thật (Zalo/CRM)</li><li>Tinh chỉnh &amp; cập nhật luật</li><li>Đồng hành hệ thống</li></ul>
+    </div>
+  </div>
+  <table>
+    <tr><th>Hạng mục</th><th class="r">Thành tiền</th></tr>
+    <tr><td>Gói Pilot AI Sales (4 tuần) — trọn gói output mục 4</td><td class="r">68.000.000 đ</td></tr>
+    <tr><td>Tùy chọn: nối kênh thật (Zalo/Email/CRM)</td><td class="r">+30.000.000 đ</td></tr>
+    <tr class="price-hi"><td>Đầu tư khởi động (chỉ Pilot)</td><td class="r">68.000.000 đ</td></tr>
+  </table>
+  <p style="font-size:12px;color:var(--hint);">Giá chưa gồm VAT. Con số mang tính đề xuất, có thể điều chỉnh theo quy mô &amp; phạm vi thực tế của <span class="fill">[TÊN DOANH NGHIỆP]</span>.</p>
+
+  <h2><span class="n">6</span>Điều khoản &amp; thanh toán</h2>
+  <table class="terms">
+    <tr><td style="width:180px;color:var(--muted)">Tạm ứng khởi động</td><td><b>50%</b> (34.000.000 đ) khi ký — để khởi động ngay Tuần 1</td></tr>
+    <tr><td style="color:var(--muted)">Nghiệm thu</td><td><b>50%</b> còn lại khi bàn giao &amp; nghiệm thu Tuần 4</td></tr>
+    <tr><td style="color:var(--muted)">Thời gian</td><td>04 tuần kể từ ngày tạm ứng</td></tr>
+    <tr><td style="color:var(--muted)">Cam kết</td><td>Nếu Pilot không đạt tiêu chí nghiệm thu đã thống nhất, hoàn phần chưa bàn giao</td></tr>
+  </table>
+
+  <div class="cta">
+    <p style="margin:0;"><b>Bước tiếp theo:</b> Xác nhận đề xuất và chuyển tạm ứng để khởi động Tuần 1 ngay ngày mai. Mình bắt đầu khảo sát &amp; soạn Hiến pháp cho <span class="fill">[TÊN DOANH NGHIỆP]</span> trong 48 giờ.</p>
+  </div>
+
+  <div class="sign">
+    <div>Đại diện <span class="fill">[TÊN DOANH NGHIỆP]</span><br><br>(Ký, ghi rõ họ tên)</div>
+    <div>Emmy Lê Thị Hải<br>System Leadership Coach<br>(Ký, ghi rõ họ tên)</div>
+  </div>
+
+  <div class="foot">Emmy Lê Thị Hải · System Leadership Coach · TSL (Team – System – Leadership) &amp; SPOP · lthihai@gmail.com</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+pyyaml>=6.0
+# Web server / webhook:
+fastapi>=0.110
+uvicorn>=0.27
+# Tùy chọn LLM thật (bỏ comment khi dùng):
+# openai>=1.0
+# anthropic>=0.30

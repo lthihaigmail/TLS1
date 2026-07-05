@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+# Runtime data (không commit)
+data/approvals.json
+data/audit.jsonl
+data/memory.json
+# Secrets
+.env

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enforcement Studio — Nhập luật & thử nghiệm AI</title>
+<style>
+  :root{
+    --bg:#f5f4ef; --card:#ffffff; --ink:#1b1b19; --muted:#6a6960; --hint:#9a988f;
+    --line:#e5e3da; --line2:#d2cfc4; --accent:#0f6e56; --accent-bg:#e1f5ee; --accent-dk:#085041;
+    --ok:#0f6e56; --ok-bg:#e1f5ee; --ok-line:#9fe1cb;
+    --no:#a32d2d; --no-bg:#fceceb; --no-line:#f0999b;
+    --wn:#854f0b; --wn-bg:#faeeda; --wn-line:#f0c777;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; line-height:1.6;}
+  .wrap{max-width:1000px; margin:0 auto; padding:30px 20px 70px;}
+  .kicker{color:var(--accent); font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;}
+  h1{font-size:22px; font-weight:600; margin:6px 0 4px;}
+  .lead{font-size:14px; color:var(--muted); margin:0 0 22px; max-width:620px;}
+  .cols{display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:start;}
+  .panel{background:var(--card); border:.5px solid var(--line2); border-radius:14px; padding:18px 20px;}
+  .panel h2{font-size:15px; font-weight:600; margin:0 0 3px; display:flex; align-items:center; gap:8px;}
+  .panel .ph{color:var(--muted); font-size:12px; margin:0 0 16px;}
+  .fld{margin-bottom:14px;}
+  .fld label{display:block; font-size:13px; color:var(--ink); margin-bottom:5px; font-weight:500;}
+  .fld .h{font-size:12px; color:var(--hint); font-weight:400;}
+  input[type=number],select{width:100%; height:36px; padding:0 10px; font-size:14px; font-family:inherit;
+    border:.5px solid var(--line2); border-radius:8px; background:#fbfbf9; color:var(--ink);}
+  input[type=number]:focus,select:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-bg);}
+  .inline{display:flex; gap:10px;} .inline .fld{flex:1;}
+  .check{display:flex; align-items:center; gap:9px; padding:8px 0; font-size:13px; cursor:pointer;}
+  .check input{width:17px; height:17px; accent-color:var(--accent);}
+  .sec-t{font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:var(--hint); font-weight:600; margin:18px 0 6px; border-top:.5px solid var(--line); padding-top:14px;}
+  button{font-family:inherit; cursor:pointer;}
+  .btn{width:100%; height:40px; background:var(--accent); color:#fff; border:none; border-radius:9px; font-size:14px; font-weight:600; margin-top:4px;}
+  .btn:hover{background:var(--accent-dk);}
+  .btn-ghost{background:transparent; border:.5px solid var(--line2); color:var(--ink); height:34px; border-radius:8px; font-size:12px; padding:0 10px;}
+  .btn-ghost:hover{background:#eceae2;}
+  .presets{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px;}
+  .verdict{border-radius:10px; padding:14px 15px; margin-top:16px;}
+  .verdict .top{display:flex; align-items:center; gap:9px; font-weight:600; font-size:14px; margin-bottom:6px;}
+  .verdict .ic{width:19px;height:19px;flex:none;}
+  .verdict .msg{font-size:13px; line-height:1.5;}
+  .verdict .meta{font-size:12px; margin-top:8px; display:flex; flex-wrap:wrap; gap:4px 16px; opacity:.9;}
+  .v-ok{background:var(--ok-bg); border:.5px solid var(--ok-line); color:var(--ok);}
+  .v-no{background:var(--no-bg); border:.5px solid var(--no-line); color:var(--no);}
+  .v-wn{background:var(--wn-bg); border:.5px solid var(--wn-line); color:var(--wn);}
+  .empty{font-size:13px; color:var(--hint); padding:20px 0; text-align:center;}
+  .custom-rule{background:#fbfbf9; border:.5px solid var(--line); border-radius:8px; padding:8px 10px; font-size:12px; margin:6px 0; display:flex; justify-content:space-between; align-items:center; gap:8px;}
+  .custom-rule .x{color:var(--no); cursor:pointer; font-weight:600; padding:0 4px;}
+  .note{font-size:12px; color:var(--hint); margin-top:22px; padding-top:14px; border-top:.5px solid var(--line);}
+  code{background:#eceae2; padding:1px 6px; border-radius:5px; font-size:12px; font-family:Consolas,monospace;}
+  @media(max-width:780px){ .cols{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="kicker">TSL Constitution Engine</span>
+  <h1>Enforcement Studio — Nhập luật &amp; thử nghiệm</h1>
+  <p class="lead">Chỉnh luật, quy chế, chính sách ở cột trái. Bấm thử một hành động ở cột phải. Engine phán quyết theo đúng luật bạn vừa nhập — <strong>đổi luật là đổi hành vi, không sửa code</strong>.</p>
+
+  <div class="cols">
+    <!-- LAW PANEL -->
+    <div class="panel">
+      <h2>Luật · Quy chế · Chính sách</h2>
+      <p class="ph">Đây là “Hiến pháp” mà AI phải tuân theo.</p>
+
+      <div class="sec-t">Chính sách bán hàng</div>
+      <div class="inline">
+        <div class="fld">
+          <label>Trần chiết khấu <span class="h">(%)</span></label>
+          <input type="number" id="discountLimit" value="5" min="0" max="100" step="1">
+        </div>
+        <div class="fld">
+          <label>Biên tối thiểu <span class="h">(%)</span></label>
+          <input type="number" id="minMargin" value="12" min="0" max="100" step="1">
+        </div>
+      </div>
+      <div class="fld">
+        <label>Ngưỡng hợp đồng cần Ban Giám đốc <span class="h">(VNĐ)</span></label>
+        <input type="number" id="boardThreshold" value="500000000" min="0" step="10000000">
+      </div>
+
+      <div class="sec-t">Quy chế thẩm quyền AI Sales</div>
+      <label class="check"><input type="checkbox" id="creditApproval" checked> Cấp công nợ phải xin duyệt</label>
+      <label class="check"><input type="checkbox" id="requireTech" checked> Đổi cấu hình kỹ thuật cần Kỹ thuật duyệt</label>
+      <label class="check"><input type="checkbox" id="aiCanSign"> Cho phép AI tự ký hợp đồng</label>
+      <label class="check"><input type="checkbox" id="allowGray"> Cho phép bán hàng trôi nổi (không CO/CQ)</label>
+      <label class="check"><input type="checkbox" id="allowCost"> Cho phép tiết lộ giá vốn / biên</label>
+
+      <div class="sec-t">Thêm luật riêng</div>
+      <p class="ph" style="margin-bottom:8px;">Chặn một hành động bất kỳ và định tuyến người duyệt.</p>
+      <div class="fld"><input type="text" id="crAction" placeholder="Tên hành động, vd: giam_gia_le_hoi" style="height:34px;padding:0 10px;font-size:13px;width:100%;border:.5px solid var(--line2);border-radius:8px;background:#fbfbf9;"></div>
+      <div class="inline">
+        <div class="fld"><select id="crVerdict"><option value="BLOCK">CHẶN</option><option value="APPROVE">CẦN DUYỆT</option></select></div>
+        <div class="fld"><input type="text" id="crRoute" placeholder="Chuyển cho (vd: board)" style="height:36px;padding:0 10px;font-size:13px;width:100%;border:.5px solid var(--line2);border-radius:8px;background:#fbfbf9;"></div>
+      </div>
+      <button class="btn-ghost" onclick="addRule()" style="width:100%;">+ Thêm luật</button>
+      <div id="ruleList" style="margin-top:10px;"></div>
+    </div>
+
+    <!-- TEST PANEL -->
+    <div class="panel">
+      <h2>Thử nghiệm hành động</h2>
+      <p class="ph">Chọn nhanh một tình huống, hoặc tự nhập.</p>
+      <div class="presets" id="presets"></div>
+
+      <div class="fld">
+        <label>Hành động</label>
+        <select id="action">
+          <option value="create_quote">Lập báo giá</option>
+          <option value="offer_credit_terms">Cấp công nợ</option>
+          <option value="change_technical_spec">Đổi cấu hình kỹ thuật</option>
+          <option value="commit_delivery_date">Cam kết ngày giao</option>
+          <option value="sign_contract">Ký hợp đồng</option>
+          <option value="sell_gray_market">Bán hàng trôi nổi</option>
+          <option value="disclose_cost_or_margin">Tiết lộ giá vốn</option>
+          <option value="schedule_demo">Đặt lịch demo</option>
+        </select>
+      </div>
+      <div class="inline" id="quoteFields">
+        <div class="fld"><label>Chiết khấu <span class="h">(%)</span></label><input type="number" id="tDiscount" value="3" min="0" step="1"></div>
+        <div class="fld"><label>Biên <span class="h">(%)</span></label><input type="number" id="tMargin" value="20" min="0" step="1"></div>
+      </div>
+      <div class="fld"><label>Giá trị hợp đồng <span class="h">(VNĐ)</span></label><input type="number" id="tValue" value="120000000" min="0" step="10000000"></div>
+
+      <button class="btn" onclick="runTest()">Kiểm tra với luật hiện tại</button>
+      <div id="result"><div class="empty">Chưa có kết quả — bấm “Kiểm tra”.</div></div>
+    </div>
+  </div>
+
+  <p class="note">Engine chạy tất định trong trình duyệt, đọc trực tiếp luật ở cột trái. Thử: đặt trần chiết khấu = 5% rồi test giảm 8% → CHẶN. Nâng trần lên 10% → cùng hành động lại được CHO PHÉP. Không dòng code nào thay đổi. Đây là <code>TSL Constitution Engine</code> — bản demo pilot APD.</p>
+</div>
+
+<script>
+var ROLE={sales_manager:"Sales Manager",sales_director:"Giám đốc Kinh doanh",tech_lead:"Trưởng phòng Kỹ thuật",ops_lead:"Trưởng phòng Vận hành",board:"Ban Giám đốc"};
+var SVG={
+ ok:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>',
+ no:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M6 6l12 12"/></svg>',
+ wn:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg>'
+};
+var META={ALLOW:{c:"v-ok",i:SVG.ok,l:"CHO PHÉP"},BLOCK:{c:"v-no",i:SVG.no,l:"CHẶN"},APPROVE:{c:"v-wn",i:SVG.wn,l:"CẦN DUYỆT"}};
+var customRules=[];
+
+var PRESETS=[
+ {t:"Giảm 3%",a:"create_quote",d:3,m:20,v:120000000},
+ {t:"Giảm 8%",a:"create_quote",d:8,m:15,v:320000000},
+ {t:"Biên 9%",a:"create_quote",d:2,m:9,v:80000000},
+ {t:"Công nợ 30 ngày",a:"offer_credit_terms",d:0,m:20,v:200000000},
+ {t:"Đổi cấu hình",a:"change_technical_spec",d:0,m:20,v:0},
+ {t:"Tự ký HĐ",a:"sign_contract",d:0,m:20,v:450000000},
+ {t:"Đơn 600 triệu",a:"create_quote",d:1,m:18,v:600000000},
+ {t:"Hàng trôi nổi",a:"sell_gray_market",d:0,m:20,v:0},
+ {t:"Hỏi giá vốn",a:"disclose_cost_or_margin",d:0,m:20,v:0},
+ {t:"Đặt demo",a:"schedule_demo",d:0,m:20,v:0}
+];
+
+function num(id){return parseFloat(document.getElementById(id).value)||0;}
+function chk(id){return document.getElementById(id).checked;}
+function esc(t){var d=document.createElement("div");d.textContent=t;return d.innerHTML;}
+function vnd(n){return (n||0).toLocaleString("vi-VN")+"đ";}
+
+function evaluate(act){
+  // custom rules first
+  for(var i=0;i<customRules.length;i++){
+    if(customRules[i].action===act.name){
+      var cr=customRules[i];
+      return {v:cr.verdict, rule:"custom:"+cr.action, route:cr.route||null,
+        msg:(cr.verdict==="BLOCK"?"Bị chặn bởi luật riêng.":"Cần duyệt theo luật riêng.")};
+    }
+  }
+  var dl=num("discountLimit"), mm=num("minMargin"), bt=num("boardThreshold");
+
+  if(act.name==="create_quote"){
+    if(act.discount>dl) return {v:"BLOCK",rule:"block_over_discount",route:"sales_manager",
+      msg:"Giảm giá "+act.discount+"% vượt trần "+dl+"% — cần Sales Manager duyệt."};
+    if(act.margin<mm) return {v:"BLOCK",rule:"block_low_margin",route:"sales_director",
+      msg:"Biên "+act.margin+"% dưới mức tối thiểu "+mm+"% — cần Giám đốc Kinh doanh duyệt."};
+    if(act.value>bt) return {v:"APPROVE",rule:"contract_value_above_threshold",route:"board",
+      msg:"Giá trị "+vnd(act.value)+" vượt ngưỡng "+vnd(bt)+" — cần Ban Giám đốc duyệt."};
+    return {v:"ALLOW",rule:"—",route:null,msg:"Hợp lệ: giảm ≤ "+dl+"%, biên ≥ "+mm+"%, dưới ngưỡng duyệt."};
+  }
+  if(act.name==="offer_credit_terms"){
+    if(chk("creditApproval")) return {v:"BLOCK",rule:"block_credit",route:"sales_director",
+      msg:"Cấp công nợ cần Giám đốc Kinh doanh duyệt."};
+    return {v:"ALLOW",rule:"—",route:null,msg:"Luật hiện cho phép AI cấp công nợ trực tiếp."};
+  }
+  if(act.name==="change_technical_spec"){
+    if(chk("requireTech")) return {v:"APPROVE",rule:"require_tech_review",route:"tech_lead",
+      msg:"Cấu hình kỹ thuật phải được Trưởng phòng Kỹ thuật duyệt."};
+    return {v:"ALLOW",rule:"—",route:null,msg:"Luật hiện cho phép AI tự đổi cấu hình."};
+  }
+  if(act.name==="commit_delivery_date"){
+    return {v:"BLOCK",rule:"authority:commit_delivery_date_without_ops",route:"ops_lead",
+      msg:"AI không tự cam kết ngày giao — cần Vận hành xác nhận tồn kho & tiến độ."};
+  }
+  if(act.name==="sign_contract"){
+    if(chk("aiCanSign")) return {v:"ALLOW",rule:"—",route:null,msg:"Luật hiện cho phép AI tự ký (rủi ro cao)."};
+    return {v:"BLOCK",rule:"block_unsigned_commit",route:"sales_director",
+      msg:"AI không có quyền ký. Chuyển người có thẩm quyền."};
+  }
+  if(act.name==="sell_gray_market"){
+    if(chk("allowGray")) return {v:"ALLOW",rule:"—",route:null,msg:"Luật hiện cho phép (không khuyến nghị)."};
+    return {v:"BLOCK",rule:"block_gray_market",route:"board",msg:"APD chỉ bán hàng chính hãng có CO/CQ."};
+  }
+  if(act.name==="disclose_cost_or_margin"){
+    if(chk("allowCost")) return {v:"ALLOW",rule:"—",route:null,msg:"Luật hiện cho phép tiết lộ (rủi ro)."};
+    return {v:"BLOCK",rule:"block_cost_disclosure",route:null,msg:"Không tiết lộ giá vốn hoặc biên lợi nhuận."};
+  }
+  return {v:"ALLOW",rule:"—",route:null,msg:"Hành động trong thẩm quyền — cho phép."};
+}
+
+function runTest(){
+  var act={name:document.getElementById("action").value, discount:num("tDiscount"), margin:num("tMargin"), value:num("tValue")};
+  var r=evaluate(act);
+  var m=META[r.v];
+  var route=r.route?("Chuyển: "+esc(ROLE[r.route]||r.route)):"Xử lý tại chỗ";
+  document.getElementById("result").innerHTML=
+    '<div class="verdict '+m.c+'"><div class="top">'+m.i+'<span>ENGINE: '+m.l+'</span></div>'
+    +'<div class="msg">'+esc(r.msg)+'</div>'
+    +'<div class="meta"><span>rule: '+esc(r.rule)+'</span><span>'+route+'</span></div></div>';
+}
+
+function addRule(){
+  var a=document.getElementById("crAction").value.trim();
+  if(!a) return;
+  var v=document.getElementById("crVerdict").value;
+  var rt=document.getElementById("crRoute").value.trim();
+  customRules.push({action:a,verdict:v,route:rt});
+  document.getElementById("crAction").value=""; document.getElementById("crRoute").value="";
+  renderRules(); refreshActionOptions();
+}
+function removeRule(i){customRules.splice(i,1); renderRules(); refreshActionOptions();}
+function renderRules(){
+  var el=document.getElementById("ruleList");
+  el.innerHTML=customRules.map(function(r,i){
+    return '<div class="custom-rule"><span><code>'+esc(r.action)+'</code> → '+(r.verdict==="BLOCK"?"CHẶN":"CẦN DUYỆT")
+      +(r.route?' · '+esc(r.route):'')+'</span><span class="x" onclick="removeRule('+i+')">✕</span></div>';
+  }).join("");
+}
+function refreshActionOptions(){
+  var sel=document.getElementById("action");
+  var base=["create_quote","offer_credit_terms","change_technical_spec","commit_delivery_date","sign_contract","sell_gray_market","disclose_cost_or_margin","schedule_demo"];
+  var labels={create_quote:"Lập báo giá",offer_credit_terms:"Cấp công nợ",change_technical_spec:"Đổi cấu hình kỹ thuật",commit_delivery_date:"Cam kết ngày giao",sign_contract:"Ký hợp đồng",sell_gray_market:"Bán hàng trôi nổi",disclose_cost_or_margin:"Tiết lộ giá vốn",schedule_demo:"Đặt lịch demo"};
+  var cur=sel.value;
+  var opts=base.map(function(b){return '<option value="'+b+'">'+labels[b]+'</option>';});
+  customRules.forEach(function(r){opts.push('<option value="'+esc(r.action)+'">'+esc(r.action)+' (luật riêng)</option>');});
+  sel.innerHTML=opts.join("");
+  sel.value=cur;
+}
+
+(function(){
+  var p=document.getElementById("presets");
+  PRESETS.forEach(function(x){
+    var b=document.createElement("button");
+    b.className="btn-ghost"; b.textContent=x.t;
+    b.onclick=function(){
+      document.getElementById("action").value=x.a;
+      document.getElementById("tDiscount").value=x.d;
+      document.getElementById("tMargin").value=x.m;
+      document.getElementById("tValue").value=x.v;
+      runTest();
+    };
+    p.appendChild(b);
+  });
+  // re-evaluate live when law changes
+  ["discountLimit","minMargin","boardThreshold","creditApproval","requireTech","aiCanSign","allowGray","allowCost","action","tDiscount","tMargin","tValue"]
+   .forEach(function(id){ var e=document.getElementById(id); e.addEventListener("change",function(){ if(document.querySelector(".verdict")) runTest(); }); });
+})();
+</script>
+</body>
+</html>
