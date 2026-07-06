@@ -3,87 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TSL AI Workforce — Cổng Demo &amp; Đề xuất</title>
+<title>AIRON by TSL — AI Workforce</title>
 <style>
-  :root{
-    --bg:#f5f4ef; --card:#ffffff; --ink:#1b1b19; --muted:#63625a; --hint:#9a988f;
-    --line:#e5e3da; --line2:#d2cfc4; --accent:#0f6e56; --accent-bg:#e1f5ee; --accent-dk:#085041;
-  }
+  :root{--ink:#202124;--muted:#5f6368;--line:#dadce0;--accent:#0f6e56;--gold:#b8860b;}
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.6;}
-  .wrap{max-width:860px;margin:0 auto;padding:48px 24px 70px;}
-  .brand{font-weight:700;font-size:15px;color:var(--accent-dk);}
-  .brand small{display:block;font-weight:400;font-size:12px;color:var(--hint);}
-  .kicker{color:var(--accent);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-top:26px;}
-  h1{font-size:28px;font-weight:600;margin:6px 0 8px;}
-  .lead{font-size:15px;color:var(--muted);max-width:620px;margin:0 0 8px;}
-  .flow{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 30px;font-size:12px;color:var(--muted);}
-  .flow span{background:var(--card);border:.5px solid var(--line);border-radius:20px;padding:5px 13px;}
-  .flow span.on{background:var(--accent-bg);border-color:var(--accent-bg);color:var(--accent-dk);font-weight:600;}
-  .sec-t{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--hint);font-weight:600;margin:28px 0 12px;}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
-  a.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:.5px solid var(--line2);border-radius:14px;padding:20px;transition:border-color .15s;}
-  a.card:hover{border-color:var(--accent);}
-  a.card.feat{border:2px solid var(--accent);}
-  .ic{width:42px;height:42px;border-radius:10px;background:var(--accent-bg);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:12px;}
-  .ct{font-weight:600;font-size:16px;margin:0 0 4px;}
-  .cd{font-size:13px;color:var(--muted);margin:0;}
-  .go{font-size:13px;color:var(--accent);font-weight:600;margin-top:12px;display:inline-block;}
-  .badge{font-size:11px;background:var(--accent);color:#fff;padding:2px 9px;border-radius:20px;font-weight:600;float:right;}
-  .foot{margin-top:40px;padding-top:16px;border-top:.5px solid var(--line);font-size:12px;color:var(--hint);}
+  html,body{height:100%}
+  body{margin:0;background:#fff;color:var(--ink);
+    font-family:Arial,-apple-system,"Segoe UI",Roboto,sans-serif;
+    display:flex;flex-direction:column;align-items:center;
+    padding:9vh 20px 40px;text-align:center;}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;}
+  .brand{font-size:60px;font-weight:700;letter-spacing:2px;margin:6px 0 0;}
+  .byT{font-size:14px;color:var(--muted);letter-spacing:.12em;margin-top:2px;}
+  .hero{font-size:19px;font-weight:500;margin:20px auto 8px;max-width:560px;line-height:1.4;}
+  .sub{font-size:14px;color:var(--muted);margin:0 auto 18px;max-width:520px;line-height:1.55;}
+  .emps{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;max-width:640px;margin:0 auto 26px;}
+  .emps span{font-size:11px;color:var(--muted);background:#f4f7f5;border:1px solid #e4ebe7;border-radius:20px;padding:3px 10px;}
+  .start{margin-bottom:32px;}
+  a.start-btn{display:inline-block;text-decoration:none;font-size:15px;font-weight:500;
+    background:var(--accent);color:#fff;padding:12px 26px;border-radius:24px;transition:box-shadow .18s;}
+  a.start-btn:hover{box-shadow:0 1px 8px rgba(15,110,86,.4);}
+  .hint{font-size:12px;color:var(--muted);margin-top:8px;}
+  .tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:600px;}
+  a.tile{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;
+    width:180px;min-height:128px;padding:16px 12px;text-decoration:none;color:var(--ink);
+    background:#fff;border:1px solid var(--line);border-radius:12px;transition:box-shadow .18s,border-color .18s;}
+  a.tile:hover{box-shadow:0 1px 6px rgba(32,33,36,.18);border-color:transparent;}
+  a.tile.feat{border:2px solid var(--accent);}
+  a.tile .ic{font-size:26px;line-height:1;}
+  a.tile .nm{font-size:14px;font-weight:500;}
+  a.tile .cap{font-size:12px;color:var(--muted);line-height:1.35;}
+  .cta{margin-top:30px;}
+  a.btn{display:inline-block;text-decoration:none;font-size:14px;padding:10px 22px;border-radius:8px;border:1px solid var(--line);color:var(--ink);}
+  a.btn:hover{box-shadow:0 1px 6px rgba(32,33,36,.16);border-color:transparent;}
+  .foot{margin-top:auto;padding-top:40px;font-size:12px;color:var(--muted);}
 </style>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AIRON by TSL — Thuê 14 nhân viên AI">
+  <meta property="og:description" content="Để công ty tự chạy. Thuê cả đội nhân viên AI, rẻ hơn 1 nhân viên toàn thời gian.">
+  <meta property="og:image" content="https://lthihaigmail.github.io/tsl-demo/airon-hero.png">
+  <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
-<div class="wrap">
-  <div class="brand">Emmy Lê Thị Hải<small>System Leadership Coach · TSL Framework</small></div>
+  <div class="kicker">TSL AI Workforce</div>
+  <svg viewBox="0 0 120 120" width="46" height="46" style="margin-bottom:2px" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9c766"/><stop offset="1" stop-color="#b8860b"/></linearGradient><linearGradient id="lt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1dd6a6"/><stop offset="1" stop-color="#0f6e56"/></linearGradient></defs><rect x="6" y="6" width="108" height="108" rx="26" fill="#0c2f27"/><rect x="6" y="6" width="108" height="108" rx="26" fill="none" stroke="url(#lg)" stroke-width="4"/><path d="M34,98 L60,24" fill="none" stroke="url(#lg)" stroke-width="9" stroke-linecap="round"/><path d="M86,98 L60,24" fill="none" stroke="url(#lg)" stroke-width="9" stroke-linecap="round"/><rect x="41" y="66" width="38" height="11" rx="5.5" fill="url(#lt)"/><circle cx="51" cy="71.5" r="3" fill="#eafff8"/><circle cx="69" cy="71.5" r="3" fill="#eafff8"/></svg>
+  <h1 class="brand">AIRON</h1>
+  <div class="byT">by TSL</div>
+  <p class="hero">Thuê 14 nhân viên AI — chi phí thấp hơn 1 nhân viên toàn thời gian.</p>
+  <p class="sub">Để công ty tự chạy. Mỗi AI có một vai trò, có KPI, và biết khi nào cần chuyển việc cho con người.</p>
 
-  <div class="kicker">Business Operating System · AI Workforce</div>
-  <h1>TSL AI Workforce</h1>
-  <p class="lead">Doanh nghiệp nạp tri thức thành Hiến pháp máy đọc được. Các trạm AI là nhân viên số chạy đúng Hiến pháp đó — có thẩm quyền giới hạn, có KPI, biết escalate. Đây là cổng vào demo và đề xuất.</p>
-  <div class="flow">
-    <span>Nạp tri thức</span><span class="on">Hiến pháp</span><span>Trạm AI</span><span>Enforcement</span><span>Kênh</span>
+  <div class="emps">
+    <span>AI CEO</span><span>AI Sales</span><span>AI Marketing</span><span>AI HR</span><span>AI Finance</span>
+    <span>AI Customer Service</span><span>AI Purchasing</span><span>AI Planner</span><span>AI Auditor</span>
+    <span>AI Coach</span><span>AI Research</span><span>AI Knowledge</span><span>AI Legal</span><span>AI Assistant</span>
   </div>
 
-  <div class="sec-t">Bắt đầu — Đề xuất &amp; Báo giá</div>
-  <div class="grid">
-    <a class="card feat" href="De-xuat-Bao-gia.html">
-      <span class="badge">Chốt ngày mai</span>
-      <div class="ic">₫</div>
-      <p class="ct">Đề xuất &amp; Báo giá</p>
-      <p class="cd">Gói Pilot AI Sales 4 tuần — phạm vi, output bàn giao, giá &amp; điều khoản. In/Lưu PDF để gửi khách.</p>
-      <span class="go">Mở đề xuất →</span>
-    </a>
+  <div class="start">
+    <a class="start-btn" href="roadmap.html">🚀 Bắt đầu tại đây</a>
+    <div class="hint">Chưa biết bắt đầu từ đâu? Lộ trình 6 bước cho người mới.</div>
   </div>
 
-  <div class="sec-t">Toàn cảnh &amp; demo tương tác (trình khi gặp khách)</div>
-  <div class="grid">
-    <a class="card feat" href="APD-Truoc-Sau.html">
-      <span class="badge">Đánh nỗi đau</span>
-      <div class="ic">⚖️</div>
-      <p class="ct">Trước &amp; Sau</p>
-      <p class="cd">Doanh nghiệp phụ thuộc chủ (nút thắt) vs. tự vận hành (chủ được giải phóng). Mở màn để chạm nỗi đau khách.</p>
-      <span class="go">Mở so sánh →</span>
-    </a>
-    <a class="card feat" href="APD-Enterprise-Map.html">
-      <span class="badge">Mở màn</span>
-      <div class="ic">🗺️</div>
-      <p class="ct">Bản đồ vận hành doanh nghiệp</p>
-      <p class="cd">Toàn cảnh: Hiến pháp → 14 nhân viên AI theo phòng ban → escalate lên con người → kênh. Một hình thấy cả bộ máy.</p>
-      <span class="go">Mở bản đồ →</span>
-    </a>
-    <a class="card" href="APD-TSL-OS-Console.html">
-      <div class="ic">▦</div>
-      <p class="ct">TSL OS Console</p>
-      <p class="cd">Toàn cảnh đủ bộ 14 nhân viên AI: nạp tri thức → Hiến pháp → trạm AI. Bấm từng trạm để xem hồ sơ &amp; thử.</p>
-      <span class="go">Mở console →</span>
-    </a>
-    <a class="card" href="APD-Enforcement-Studio.html">
-      <div class="ic">⚙</div>
-      <p class="ct">Enforcement Studio</p>
-      <p class="cd">Nhập/sửa luật, quy chế, chính sách rồi thử ngay. Đổi luật là đổi hành vi, không sửa code.</p>
-      <span class="go">Mở studio →</span>
-    </a>
-    <a class="card" href="APD-Constitution-Viewer.html">
-      <div class="ic">§</div>
-      <p class="ct">Hiến pháp doanh nghiệp</p>
-      <p class="cd">Văn kiện đầy đủ 12 mục: Vision �
+  <div class="tiles">
+    <a class="tile feat" href="APD-TSL-OS-Console.html"><span class="ic">🦾</span><span class="nm">AIRON</span><span class="cap">Đội nhân viên AI — thuê cả 14</span></a>
+    <a class="tile" href="APD-Enterprise-Map.html"><span class="ic">🗺️</span><span class="nm">Toàn cảnh công ty</span><span class="cap">Bức tranh một công ty tự chạy</span></a>
+    <a class="tile" href="APD-Truoc-Sau.html"><span class="ic">📊</span><span class="nm">Health Check</span><span class="cap">Chấm sức khỏe &amp; nỗi đau hiện tại</span></a>
+    <a class="tile" href="APD-Constitution-Viewer.html"><span class="ic">📜</span><span class="nm">Hiến pháp công ty</span><span class="cap">Bộ luật vận hành của công ty</span></a>
+    <a class="tile" href="APD-Enforcement-Studio.html"><span class="ic">⚙️</span><span class="nm">Đặt luật cho AI</span><span class="cap">Bạn ra luật — AI làm đúng</span></a>
+    <a class="tile" href="APD-Pilot-06-demo.html"><span class="ic">💬</span><span class="nm">Chat với AI</span><span class="cap">Nói chuyện như một khách hàng</span></a>
+  </div>
+
+  <div class="cta">
+    <a class="btn" href="airon-pricing.html">Xem báo giá thuê AI</a>
+  </div>
+
+  <div class="foot">AIRON by TSL · Emmy Lê Thị Hải — System Leadership Coach</div>
+</body>
+</html>

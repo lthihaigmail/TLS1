@@ -1,0 +1,44 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AIRON by TSL — Thuê 14 nhân viên AI, cả đội 3.990k mỗi tháng">
+  <defs>
+    <radialGradient id="bg" cx="30%" cy="35%" r="90%"><stop offset="0" stop-color="#0f3a30"/><stop offset="1" stop-color="#061912"/></radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2d47e"/><stop offset="1" stop-color="#b8860b"/></linearGradient>
+    <linearGradient id="teal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1dd6a6"/><stop offset="1" stop-color="#0f6e56"/></linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <line x1="60" y1="545" x2="680" y2="545" stroke="#1f5347" stroke-width="1"/>
+  <g transform="translate(60,120) scale(1.5)">
+    <rect x="6" y="6" width="108" height="108" rx="26" fill="#0c2f27"/>
+    <rect x="6" y="6" width="108" height="108" rx="26" fill="none" stroke="url(#gold)" stroke-width="4"/>
+    <path d="M34,98 L60,24" fill="none" stroke="url(#gold)" stroke-width="9" stroke-linecap="round"/>
+    <path d="M86,98 L60,24" fill="none" stroke="url(#gold)" stroke-width="9" stroke-linecap="round"/>
+    <rect x="41" y="66" width="38" height="11" rx="5.5" fill="url(#teal)"/>
+    <circle cx="51" cy="71.5" r="3" fill="#eafff8"/><circle cx="69" cy="71.5" r="3" fill="#eafff8"/>
+  </g>
+  <text x="285" y="150" font-family="Arial" font-size="20" font-weight="700" letter-spacing="6" fill="#1dd6a6">TSL AI WORKFORCE</text>
+  <text x="283" y="248" font-family="Arial" font-size="100" font-weight="800" letter-spacing="4" fill="url(#gold)">AIRON</text>
+  <text x="289" y="284" font-family="Arial" font-size="24" letter-spacing="6" fill="#9fc3b7">by TSL</text>
+  <text x="62" y="410" font-family="Arial" font-size="32" font-weight="700" fill="#eafff8">Thuê 14 nhân viên AI —</text>
+  <text x="62" y="452" font-family="Arial" font-size="32" font-weight="700" fill="#eafff8">rẻ hơn 1 nhân viên toàn thời gian.</text>
+  <text x="62" y="498" font-family="Arial" font-size="19" fill="#9fc3b7">Để công ty tự chạy. Mỗi AI có vai trò &amp; KPI riêng.</text>
+  <rect x="740" y="70" width="400" height="490" rx="20" fill="#0b2a22" stroke="#1f5347" stroke-width="1.5"/>
+  <text x="768" y="112" font-family="Arial" font-size="20" font-weight="700" letter-spacing="3" fill="#1dd6a6">14 AI EMPLOYEES</text>
+  <g font-family="Arial" font-size="17" fill="#dff3ec">
+    <circle cx="774" cy="154" r="3.5" fill="#1dd6a6"/><text x="786" y="159">AI CEO</text>
+    <circle cx="962" cy="154" r="3.5" fill="#1dd6a6"/><text x="974" y="159">AI Finance</text>
+    <circle cx="774" cy="192" r="3.5" fill="#1dd6a6"/><text x="786" y="197">AI Sales</text>
+    <circle cx="962" cy="192" r="3.5" fill="#1dd6a6"/><text x="974" y="197">AI Customer Svc</text>
+    <circle cx="774" cy="230" r="3.5" fill="#1dd6a6"/><text x="786" y="235">AI Marketing</text>
+    <circle cx="962" cy="230" r="3.5" fill="#1dd6a6"/><text x="974" y="235">AI Purchasing</text>
+    <circle cx="774" cy="268" r="3.5" fill="#1dd6a6"/><text x="786" y="273">AI HR</text>
+    <circle cx="962" cy="268" r="3.5" fill="#1dd6a6"/><text x="974" y="273">AI Planner</text>
+    <circle cx="774" cy="306" r="3.5" fill="#1dd6a6"/><text x="786" y="311">AI Auditor</text>
+    <circle cx="962" cy="306" r="3.5" fill="#1dd6a6"/><text x="974" y="311">AI Research</text>
+    <circle cx="774" cy="344" r="3.5" fill="#1dd6a6"/><text x="786" y="349">AI Coach</text>
+    <circle cx="962" cy="344" r="3.5" fill="#1dd6a6"/><text x="974" y="349">AI Knowledge</text>
+    <circle cx="774" cy="382" r="3.5" fill="#1dd6a6"/><text x="786" y="387">AI Legal</text>
+    <circle cx="962" cy="382" r="3.5" fill="#1dd6a6"/><text x="974" y="387">AI Assistant</text>
+  </g>
+  <rect x="770" y="432" width="340" height="94" rx="12" fill="#0f6e56"/>
+  <text x="940" y="470" text-anchor="middle" font-family="Arial" font-size="16" fill="#bff0e2">Thuê cả đội 14 AI</text>
+  <text x="940" y="504" text-anchor="middle" font-family="Arial" font-size="28" font-weight="800" fill="#ffffff">3.990k / tháng</text>
+</svg>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Báo giá — AIRON by TSL</title>
+<style>
+  :root{--ink:#202124;--muted:#5f6368;--line:#dadce0;--accent:#0f6e56;--accent-dk:#085041;--gold:#b8860b;}
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;color:var(--ink);font-family:Arial,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.55;}
+  .wrap{max-width:900px;margin:0 auto;padding:30px 18px 70px;}
+  .top{display:flex;justify-content:space-between;align-items:center;}
+  .home{font-size:13px;color:var(--muted);text-decoration:none;}
+  .brandrow{display:flex;align-items:center;gap:10px;justify-content:center;margin:18px 0 2px;}
+  .brandrow .nm{font-size:30px;font-weight:700;letter-spacing:2px;}
+  .brandrow .by{font-size:12px;color:var(--muted);letter-spacing:.12em;}
+  h1{font-size:26px;font-weight:500;text-align:center;margin:12px 0 4px;}
+  .tag{font-size:15px;color:var(--muted);text-align:center;margin:0 auto 26px;max-width:560px;}
+  .steps{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:32px;}
+  .step{flex:1;min-width:200px;background:#f7faf8;border:1px solid #e4ebe7;border-radius:12px;padding:14px 16px;}
+  .step .n{width:26px;height:26px;border-radius:50%;background:#e6f4ee;color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;margin-bottom:8px;}
+  .step .t{font-weight:500;font-size:14px;} .step .d{font-size:12px;color:var(--muted);margin-top:2px;}
+  .sect{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:26px 0 12px;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;}
+  .card{border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center;}
+  .card .r{font-size:15px;font-weight:600;} .card .p{font-size:24px;font-weight:700;color:var(--accent-dk);margin:6px 0 2px;}
+  .card .p small{font-size:12px;font-weight:400;color:var(--muted);} .card .d{font-size:12px;color:var(--muted);}
+  .card.exec{border-color:#e7d9a8;background:#fdfbf3;}
+  .card.team{grid-column:1/-1;border:2px solid var(--accent);background:#f3faf6;display:flex;flex-direction:column;align-items:center;}
+  .card.team .badge{font-size:11px;background:var(--accent);color:#fff;padding:3px 12px;border-radius:20px;font-weight:600;margin-bottom:8px;}
+  .card.team .p{font-size:32px;}
+  .roles{font-size:12px;color:var(--muted);margin-top:8px;}
+  .note{font-size:12px;color:var(--muted);margin-top:24px;padding-top:14px;border-top:1px solid var(--line);}
+  .cta{text-align:center;margin-top:26px;}
+  a.btn{display:inline-block;text-decoration:none;font-size:15px;font-weight:500;background:var(--accent);color:#fff;padding:12px 26px;border-radius:24px;}
+</style>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AIRON by TSL — Thuê 14 nhân viên AI">
+  <meta property="og:description" content="Để công ty tự chạy. Thuê cả đội nhân viên AI, rẻ hơn 1 nhân viên toàn thời gian.">
+  <meta property="og:image" content="https://lthihaigmail.github.io/tsl-demo/airon-hero.png">
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a class="home" href="index.html">← Trang chủ</a><span style="font-size:12px;color:var(--muted)">Báo giá thuê nhân viên AI</span></div>
+
+  <div class="brandrow">
+    <svg viewBox="0 0 120 120" width="40" height="40" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9c766"/><stop offset="1" stop-color="#b8860b"/></linearGradient><linearGradient id="t" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1dd6a6"/><stop offset="1" stop-color="#0f6e56"/></linearGradient></defs><rect x="6" y="6" width="108" height="108" rx="26" fill="#0c2f27"/><rect x="6" y="6" width="108" height="108" rx="26" fill="none" stroke="url(#g)" stroke-width="4"/><path d="M34,98 L60,24" fill="none" stroke="url(#g)" stroke-width="9" stroke-linecap="round"/><path d="M86,98 L60,24" fill="none" stroke="url(#g)" stroke-width="9" stroke-linecap="round"/><rect x="41" y="66" width="38" height="11" rx="5.5" fill="url(#t)"/><circle cx="51" cy="71.5" r="3" fill="#eafff8"/><circle cx="69" cy="71.5" r="3" fill="#eafff8"/></svg>
+    <div><span class="nm">AIRON</span> <span class="by">by TSL</span></div>
+  </div>
+  <h1>Thuê nhân viên AI theo tháng</h1>
+  <p class="tag">Chi phí thấp hơn 1 nhân viên toàn thời gian. Thuê lẻ từng vai trò, hoặc thuê cả đội — huỷ bất cứ lúc nào.</p>
+
+  <div class="sect">Tuyển 1 nhân viên AI trong 3 bước</div>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><div class="t">Chọn vai trò</div><div class="d">AI Sales, AI HR, AI CEO…</div></div>
+    <div class="step"><div class="n">2</div><div class="t">Mô tả công ty &amp; sản phẩm</div><div class="d">AI học Hiến pháp &amp; sản phẩm của bạn</div></div>
+    <div class="step"><div class="n">3</div><div class="t">AI bắt đầu làm việc</div><div class="d">Chạy 24/7, biết khi nào hỏi ý bạn</div></div>
+  </div>
+
+  <div class="sect">Thuê lẻ từng vai trò</div>
+  <div class="cards">
+    <div class="card"><div class="r">🧑‍💼 AI Sales</div><div class="p">490k<small>/tháng</small></div><div class="d">Tư vấn, báo giá, chăm khách</div></div>
+    <div class="card"><div class="r">📣 AI Marketing</div><div class="p">490k<small>/tháng</small></div><div class="d">Nội dung, chiến dịch</div></div>
+    <div class="card"><div class="r">👥 AI HR</div><div class="p">490k<small>/tháng</small></div><div class="d">Sàng CV, phỏng vấn, JD</div></div>
+    <div class="card"><div class="r">📊 AI Finance</div><div class="p">490k<small>/tháng</small></div><div class="d">Hoá đơn, công nợ, đối soát</div></div>
+    <div class="card exec"><div class="r">👑 AI CEO</div><div class="p">990k<small>/tháng</small></div><div class="d">Chiến lược, OKR, báo cáo</div></div>
+    <div class="card"><div class="r">➕ Vai trò khác</div><div class="p">490k<small>/tháng</small></div><div class="d">CS · Purchasing · Planner · Auditor…</div></div>
+  </div>
+
+  <div class="sect">Thuê cả đội — tiết kiệm nhất</div>
+  <div class="cards">
+    <div class="card team">
+      <div class="badge">Đề xuất</div>
+      <div class="r">🦾 AIRON — Cả đội 14 nhân viên AI</div>
+      <div class="p">3.990k<small>/tháng</small></div>
+      <div class="d">Rẻ hơn thuê lẻ ~40% · thay cho cả một phòng ban</div>
+      <div class="roles">AI CEO · Sales · Marketing · HR · Finance · Customer Service · Purchasing · Planner · Auditor · Coach · Research · Knowledge · Legal · Assistant</div>
+    </div>
+  </div>
+
+  <div class="cta"><a class="btn" href="roadmap.html">🚀 Bắt đầu — xem lộ trình</a></div>
+
+  <p class="note">Giá tham khảo, chưa gồm VAT — cấu hình theo quy mô công ty. Có phí khởi tạo Hiến pháp một lần (tuỳ chọn) để AI chạy đúng luật của riêng bạn: xem gói <a href="De-xuat-Bao-gia.html">triển khai Pilot 4 tuần</a>. AIRON by TSL · Emmy Lê Thị Hải.</p>
+</div>
+</body>
+</html>

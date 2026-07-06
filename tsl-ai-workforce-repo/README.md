@@ -1,7 +1,7 @@
 # TSL AI Workforce
 
-<!-- Thay <username> bằng tài khoản GitHub của bạn sau khi push -->
-![CI](https://github.com/<username>/tsl-ai-workforce/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/lthihaigmail/TLS1/actions/workflows/ci.yml/badge.svg)
+· **Demo trực tuyến:** https://lthihaigmail.github.io/TLS1/
 
 > Doanh nghiệp nạp tri thức thành **Hiến pháp máy đọc được** (TSL Constitution), và các **nhân viên số AI** chạy đúng theo Hiến pháp đó — có thẩm quyền giới hạn, có KPI, biết escalate. Mọi hành động đi qua **lớp enforcement tất định** trước khi thực thi. Đổi doanh nghiệp = đổi Hiến pháp, **không sửa code**.
 
